@@ -1,0 +1,43 @@
+.topBack{
+  height:100vh;
+  background-position: left center;
+  background-repeat:no-repeat;
+}
+
+h1{
+  color:rgb(242,245,248);
+  font-size:56px;
+  font-weight:bold;
+  font-family:Orbitron;
+}
+
+h3{
+  color:rgb(242,245,248);
+  padding-top:0.25em;
+  padding-bottom:0.25em;
+  font-weight:normal;
+}
+
+.justify-content-center{
+  height:inherit !important;
+  min-height:initial;
+  width:100%;
+  position:absolute;
+  left:0;
+}
+
+.align-items-center{
+  height:200px;
+}
+
+a{
+  color: #fff;
+  border-radius: 6px;
+  background: #24292e;
+  padding: 8px;
+}
+
+a:hover{
+  text-decoration: none;
+  color: #fff;
+}
