@@ -1,4 +1,4 @@
 # AMS
 A simple php-based cms
 
-test
+test 2
