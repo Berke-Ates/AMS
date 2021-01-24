@@ -5,13 +5,13 @@
 }
 
 h1{
-  color:rgb(242,245,248);
-  font-size:56px;
+  color:#fff;
+  font-size:100px;
   font-family:'Quantum';
 }
 
 h3{
-  color:rgb(242,245,248);
+  color:#fff;
   padding-top:0.25em;
   padding-bottom:0.25em;
   font-weight:normal;
