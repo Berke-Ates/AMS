@@ -1,0 +1,8 @@
+{
+  "enabled": false,
+  "entry": "dbm.php",
+  "host":"localhost",
+  "username":"user",
+  "password":"pw",
+  "database":"name"
+}

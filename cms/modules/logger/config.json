@@ -1,0 +1,5 @@
+{
+  "enabled": true,
+  "entry": "logger.php",
+  "timestamp": true
+}
