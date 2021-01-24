@@ -5,6 +5,7 @@
 	<head>
 		<?php Builder::loadPart("header"); ?>
 		<?php Builder::loadCSS(); ?>
+		<?php Builder::loadFonts(); ?>
 	</head>
 	<body>
 		<?php Builder::loadPart("topbar"); ?>

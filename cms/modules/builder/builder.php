@@ -112,6 +112,15 @@
         echo('}');
         echo('</style>');
       }
+
+      foreach(glob("assets/fonts/*.otf") as $file){
+        echo('<style fontSrc="'.$file.'">');
+        echo('@font-face{');
+        echo('font-family: "' . pathinfo($file)["filename"] . '";');
+        echo('src: url("' . $file . '");');
+        echo('}');
+        echo('</style>');
+      }
     }
 
     public static function getLoc(){
