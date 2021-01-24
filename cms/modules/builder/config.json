@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "entry": "builder.php",
+  "dependencies": ["logger","core"],
+  "verbose": false,
+  "homepage": "home",
+  "page404": "404"
+}

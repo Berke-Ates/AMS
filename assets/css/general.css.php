@@ -1,5 +1,5 @@
 .topBack{
-  background-image:url(<?php addImgSrc("background");?>);
+  /*background-image:url();*/
 }
 
 .justify-content-center{

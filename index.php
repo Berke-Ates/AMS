@@ -1,17 +1,16 @@
 <?php include("cms/init.php");?>
-<?php //loadCore("locationDetector");?>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php //loadPart("header"); ?>
-		<?php //loadCore("cssLoader"); ?>
+		<?php Builder::loadPart("header"); ?>
+		<?php Builder::loadCSS(); ?>
 	</head>
 	<body>
-		<?php //loadPart("topbar"); ?>
-		<?php //loadCore("siteRedirector"); ?>
-		<?php //loadPart("footer"); ?>
-		<?php //loadPart("js"); ?>
-		<?php //loadCore("jsLoader"); ?>
+		<?php Builder::loadPart("topbar"); ?>
+		<?php Builder::loadSite(); ?>
+		<?php Builder::loadPart("footer"); ?>
+		<?php Builder::loadPart("js"); ?>
+		<?php Builder::loadJS(); ?>
 	</body>
 </html>

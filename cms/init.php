@@ -1,6 +1,6 @@
 <?php
 	session_start();
-  include("cms/modman.php");
+  include("cms/mod_man.php");
 
   // include all modules
   $modules = array_slice(scandir("cms/modules"),2);
@@ -13,6 +13,6 @@
 
     ModMan::load($module);
   }
-
-  Logger::logJS("hey");
+	
+	ModMan::init();
 ?>

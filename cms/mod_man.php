@@ -1,6 +1,7 @@
 <?php
 
 class ModMan{
+  private static $initArr = [];
 
   public static function check($mod, $verbose = false){
     $json = file_get_contents(ModMan::getRoot($mod) . "config.json");
@@ -62,8 +63,17 @@ class ModMan{
     include(ModMan::getRoot($mod) . ModMan::getConfig($mod)->entry);
   }
 
+  public static function addInit($func){
+    array_push(ModMan::$initArr, $func);
+  }
+
+  public static function init(){
+    foreach (ModMan::$initArr as $func) {
+      $func::init();
+    }
+    ModMan::$initArr = [];
+  }
+
 }
-
-
 
 ?>
