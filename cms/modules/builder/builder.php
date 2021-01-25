@@ -5,6 +5,7 @@
     private static $djsArr = [];
     private static $cssArr = [];
     private static $dssArr = [];
+    private static $fontArr = [];
     private static $locArr = [];
 
     public static function addLoc($name, $path){
@@ -29,6 +30,10 @@
 
     public static function addDSS($path){
       array_push(Builder::$dssArr, $path);
+    }
+
+    public static function addFont($path){
+      array_push(Builder::$fontArr, $path);
     }
 
     public static function loadPart($part){
@@ -142,6 +147,15 @@
     }
 
     public static function loadFonts(){
+      foreach(Builder::$fontArr as $file){
+        echo('<style fontSrc="'.$file.'">');
+        echo('@font-face{');
+        echo('font-family: "' . pathinfo($file)["filename"] . '";');
+        echo('src: url("' . $file . '");');
+        echo('}');
+        echo('</style>');
+      }
+
       foreach(glob("assets/fonts/*.ttf") as $file){
         echo('<style fontSrc="'.$file.'">');
         echo('@font-face{');
