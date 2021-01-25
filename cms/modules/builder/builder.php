@@ -1,6 +1,36 @@
 <?php
   class Builder{
 
+    private static $jsArr = [];
+    private static $djsArr = [];
+    private static $cssArr = [];
+    private static $dssArr = [];
+    private static $locArr = [];
+
+    public static function addLoc($name, $path){
+      if(isset(Builder::$locArr[$name])){
+        Logger::log("Location [".$name."] already exists: Old path: [".Builder::$locArr[$name]."], new path: [".$path."]", "ERROR", "Builder", $config->verbose);
+        return;
+      }
+      Builder::$locArr[$name] = $path;
+    }
+
+    public static function addJS($path){
+      array_push(Builder::$jsArr, $path);
+    }
+
+    public static function addCSS($path){
+      array_push(Builder::$cssArr, $path);
+    }
+
+    public static function addDJS($path){
+      array_push(Builder::$djsArr, $path);
+    }
+
+    public static function addDSS($path){
+      array_push(Builder::$dssArr, $path);
+    }
+
     public static function loadPart($part){
       $config = ModMan::getConfig("builder");
       $path = "build/parts/" . $part . ".phtml";
@@ -15,7 +45,11 @@
     public static function loadSite(){
       $loc = Builder::getLoc();
       $config = ModMan::getConfig("builder");
-      if( file_exists("build/sites/". $loc . "/" . $loc .".phtml") ){
+      if( file_exists($loc) ){
+        include($loc);
+        Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
+        return;
+      } else if( file_exists("build/sites/". $loc . "/" . $loc .".phtml") ){
         include("build/sites/" . $loc . "/" . $loc . ".phtml");
         Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
         return;
@@ -29,12 +63,12 @@
 
     public static function loadJS(){
       // All module js
-      foreach (Core::getJS() as $file) {
+      foreach (Builder::$jsArr as $file) {
         echo('<script src="'. $file .'"></script>');
       }
 
       // All module djs
-      foreach (Core::getDJS() as $file) {
+      foreach (Builder::$djsArr as $file) {
         echo('<script jsSrc="'.$file.'">');
         include($file);
         echo('</script>');
@@ -52,13 +86,15 @@
         echo('</script>');
       }
 
+      $loc = Builder::getLoc();
+      if( file_exists($loc) ){ return; }
       // Site specific
-      foreach (glob("build/sites/".Builder::getLoc()."/*.js") as $file) {
+      foreach (glob("build/sites/".$loc."/*.js") as $file) {
         echo('<script src="'. $file .'"></script>');
       }
 
       // Site specific djs
-      foreach (glob("build/sites/".Builder::getLoc()."/*.js.php") as $file) {
+      foreach (glob("build/sites/".$loc."/*.js.php") as $file) {
         echo('<script jsSrc="'.$file.'">');
         include($file);
         echo('</script>');
@@ -67,12 +103,12 @@
 
     public static function loadCSS(){
       // All module css
-      foreach(Core::getCSS() as $file){
+      foreach(Builder::$cssArr as $file){
         echo('<link rel="stylesheet" href="' . $file . '">');
       }
 
       // All module dss
-      foreach(Core::getDSS() as $file){
+      foreach(Builder::$dssArr as $file){
         echo('<style cssSrc="'.$file.'">');
         include($file);
         echo('</style>');
@@ -90,13 +126,15 @@
         echo('</style>');
       }
 
+      $loc = Builder::getLoc();
+      if( file_exists($loc) ){ return; }
       // site specific
-      foreach(glob("build/sites/".Builder::getLoc()."/*.css") as $file){
+      foreach(glob("build/sites/".$loc."/*.css") as $file){
         echo('<link rel="stylesheet" href="' . $file . '">');
       }
 
       // site specific dss
-      foreach(glob("build/sites/".Builder::getLoc()."/*.css.php") as $file){
+      foreach(glob("build/sites/".$loc."/*.css.php") as $file){
         echo('<style cssSrc="'.$file.'">');
         include($file);
         echo('</style>');
@@ -128,9 +166,10 @@
       $loc = "";
       if( isset($_GET['loc']) ){ $loc = $_GET['loc']; }
       if( empty($loc) || $loc == "" ){ $loc = $config->homepage; }
-      if($loc == "admin"){
-        include("cms/admin/index.phtml");
-      } else if(!file_exists("build/sites/". $loc . "/" . $loc .".phtml") && !file_exists("build/sites/". $loc . "/" . $loc .".html")){
+      if(isset(Builder::$locArr[$loc])){
+        return Builder::$locArr[$loc];
+      }
+      if(!file_exists("build/sites/". $loc . "/" . $loc .".phtml") && !file_exists("build/sites/". $loc . "/" . $loc .".html")){
         $loc = $config->page404;
       }
       return $loc;

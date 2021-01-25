@@ -13,6 +13,6 @@
 
     ModMan::load($module);
   }
-	
+
 	ModMan::init();
 ?>
