@@ -1,0 +1,1 @@
+<?php AjaxMan::exec(); ?>

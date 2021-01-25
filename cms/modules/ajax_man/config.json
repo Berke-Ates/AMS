@@ -1,0 +1,6 @@
+{
+  "enabled": true,
+  "entry": "ajax_man.php",
+  "dependencies": ["builder", "logger"],
+  "verbose": false
+}

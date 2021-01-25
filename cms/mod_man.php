@@ -69,7 +69,7 @@ class ModMan{
 
   public static function init(){
     foreach (ModMan::$initArr as $func) {
-      $func::init();
+      call_user_func($func);
     }
     ModMan::$initArr = [];
   }
