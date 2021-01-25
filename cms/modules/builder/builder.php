@@ -1,4 +1,6 @@
 <?php
+ModMan::addInit("Builder::init");
+
   class Builder{
 
     private static $jsArr = [];
@@ -7,6 +9,12 @@
     private static $dssArr = [];
     private static $fontArr = [];
     private static $locArr = [];
+
+    public static function init(){
+      foreach (glob("build/php/*.php") as $file) {
+        include($file);
+      }
+    }
 
     public static function addLoc($name, $path){
       if(isset(Builder::$locArr[$name])){
