@@ -25,10 +25,15 @@ class AjaxMan{
   public static function exec(){
     $name = $_GET['ajax_func'];
     if(isset(AjaxMan::$ajaxArr[$name])){
-      call_user_func(AjaxMan::$ajaxArr[$name]);
+      if(is_callable(AjaxMan::$ajaxArr[$name])){
+        call_user_func(AjaxMan::$ajaxArr[$name]);
+      } else {
+        Logger::log("Ajax function not found: " . $name,"ERROR","AjaxMan",false);
+        AjaxMan::ret("Function not found");
+      }
     } else {
-      Logger::log("Ajax function not found: " . $name,"WARNING","AjaxMan",false);
-      AjaxMan::ret("Function not found");
+      Logger::log("Ajax function not bound: " . $name,"WARNING","AjaxMan",false);
+      AjaxMan::ret("Function not bound");
     }
   }
 
