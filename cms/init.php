@@ -1,6 +1,6 @@
 <?php
 	session_start();
-  include("cms/mod_man.php");
+  include("cms/modman.php");
 
   // include all modules
   $modules = array_slice(scandir("cms/modules"),2);

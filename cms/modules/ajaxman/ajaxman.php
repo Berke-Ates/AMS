@@ -3,13 +3,13 @@ class AjaxMan{
   private static $ajaxArr = [];
 
   public static function init(){
-    $root = ModMan::getRoot("ajax_man");
+    $root = ModMan::getRoot("ajaxman");
     Builder::addJS($root . "ajaxHandler.js");
-    Builder::addLoc("ajax_man", $root . "ajaxHandler.php");
+    Builder::addLoc("ajaxman", $root . "ajaxHandler.php");
   }
 
   public static function add($name, $func){
-    $config = ModMan::getConfig("ajax_man");
+    $config = ModMan::getConfig("ajaxman");
 
     if(isset(AjaxMan::$ajaxArr[$name])){
       Logger::log("Ajax function [".$name."] already exists: Old func: [".AjaxMan::$ajaxArr[$name]."], new func: [".$func."]", "ERROR", "AjaxMan", $config->verbose);
@@ -21,7 +21,7 @@ class AjaxMan{
 
 
   public static function exec(){
-    $name = $_GET['ajax_func'];
+    $name = $_GET['ajaxfunc'];
     if(isset(AjaxMan::$ajaxArr[$name])){
       if(is_callable(AjaxMan::$ajaxArr[$name])){
         call_user_func(AjaxMan::$ajaxArr[$name]);

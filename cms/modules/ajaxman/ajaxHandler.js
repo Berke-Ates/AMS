@@ -7,6 +7,6 @@ function getAjax(funcName,formData,callback){
       callback(response);
     }
   };
-  xhttp.open("POST", "?loc=ajax_man&ajax_func="+funcName, true);
+  xhttp.open("POST", "?loc=ajaxman&ajaxfunc="+funcName, true);
   xhttp.send(formData);
 }
