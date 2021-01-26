@@ -1,17 +1,17 @@
-<?php include("cms/init.php");?>
+<?php
+	include("cms/init.php");
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<?php Builder::loadPart("header"); ?>
-		<?php Builder::loadCSS(); ?>
-		<?php Builder::loadFonts(); ?>
-	</head>
-	<body>
-		<?php Builder::loadPart("topbar"); ?>
-		<?php Builder::loadSite(); ?>
-		<?php Builder::loadPart("footer"); ?>
-		<?php Builder::loadPart("js"); ?>
-		<?php Builder::loadJS(); ?>
-	</body>
-</html>
+ 	Builder::startHead();
+		Builder::loadPart("header");
+		Builder::loadCSS();
+ 		Builder::loadFonts();
+
+ 	Builder::startBody();
+		Builder::loadPart("topbar");
+		Builder::loadSite();
+		Builder::loadPart("footer");
+		Builder::loadPart("js");
+		Builder::loadJS();
+
+ 	Builder::end();
+?>

@@ -1,6 +1,5 @@
 <?php
   class Builder{
-
     private static $jsArr = [];
     private static $djsArr = [];
     private static $cssArr = [];
@@ -9,9 +8,7 @@
     private static $locArr = [];
 
     public static function init(){
-      foreach (glob("build/php/*.php") as $file) {
-        include($file);
-      }
+      foreach(glob("build/php/*.php") as $file){ include($file); }
     }
 
     public static function addLoc($name, $path){
@@ -22,25 +19,11 @@
       Builder::$locArr[$name] = $path;
     }
 
-    public static function addJS($path){
-      array_push(Builder::$jsArr, $path);
-    }
-
-    public static function addCSS($path){
-      array_push(Builder::$cssArr, $path);
-    }
-
-    public static function addDJS($path){
-      array_push(Builder::$djsArr, $path);
-    }
-
-    public static function addDSS($path){
-      array_push(Builder::$dssArr, $path);
-    }
-
-    public static function addFont($path){
-      array_push(Builder::$fontArr, $path);
-    }
+    public static function addJS($path){ array_push(Builder::$jsArr, $path); }
+    public static function addCSS($path){ array_push(Builder::$cssArr, $path); }
+    public static function addDJS($path){ array_push(Builder::$djsArr, $path); }
+    public static function addDSS($path){ array_push(Builder::$dssArr, $path); }
+    public static function addFont($path){ array_push(Builder::$fontArr, $path); }
 
     public static function loadPart($part){
       $config = ModMan::getConfig("builder");
@@ -72,113 +55,68 @@
       Logger::log("Site not found: " . $loc, "ERROR", "Builder", $config->verbose);
     }
 
-    public static function loadJS(){
-      // All module js
-      foreach (Builder::$jsArr as $file) {
-        echo('<script src="'. $file .'"></script>');
-      }
+    public static function loadJS($user = true){
+      foreach(Builder::$jsArr as $file){ Builder::echoJS($file); }
+      foreach(Builder::$djsArr as $file){ Builder::echoDJS($file); }
 
-      // All module djs
-      foreach (Builder::$djsArr as $file) {
-        echo('<script jsSrc="'.$file.'">');
-        include($file);
-        echo('</script>');
-      }
-
-      // All in js folder
-      foreach (glob("assets/js/*.js") as $file) {
-        echo('<script src="'. $file .'"></script>');
-      }
-
-      // All in js folder djs
-      foreach (glob("assets/js/*.js.php") as $file) {
-        echo('<script jsSrc="'.$file.'">');
-        include($file);
-        echo('</script>');
-      }
+      if(!$user){ return; }
+      foreach(glob("assets/js/*.js") as $file){ Builder::echoJS($file); }
+      foreach(glob("assets/js/*.js.php") as $file){ Builder::echoDJS($file); }
 
       $loc = Builder::getLoc();
       if( file_exists($loc) ){ return; }
-      // Site specific
-      foreach (glob("build/sites/".$loc."/*.js") as $file) {
-        echo('<script src="'. $file .'"></script>');
-      }
-
-      // Site specific djs
-      foreach (glob("build/sites/".$loc."/*.js.php") as $file) {
-        echo('<script jsSrc="'.$file.'">');
-        include($file);
-        echo('</script>');
-      }
+      foreach(glob("build/sites/".$loc."/*.js") as $file){ Builder::echoJS($file); }
+      foreach(glob("build/sites/".$loc."/*.js.php") as $file){ Builder::echoDJS($file); }
     }
 
-    public static function loadCSS(){
-      // All module css
-      foreach(Builder::$cssArr as $file){
-        echo('<link rel="stylesheet" href="' . $file . '">');
-      }
+    private static function echoJS($path){
+      echo('<script src="'. $path .'"></script>');
+    }
 
-      // All module dss
-      foreach(Builder::$dssArr as $file){
-        echo('<style cssSrc="'.$file.'">');
-        include($file);
-        echo('</style>');
-      }
+    private static function echoDJS($path){
+      echo('<script jsSrc="'.$path.'">');
+      include($path);
+      echo('</script>');
+    }
 
-      // All in css folder
-      foreach(glob("assets/css/*.css") as $file){
-        echo('<link rel="stylesheet" href="' . $file . '">');
-      }
+    public static function loadCSS($user = true){
+      foreach(Builder::$cssArr as $file){ Builder::echoCSS($file); }
+      foreach(Builder::$dssArr as $file){ Builder::echoDSS($file); }
 
-      // All in css-folder dss
-      foreach(glob("assets/css/*.css.php") as $file){
-        echo('<style cssSrc="'.$file.'">');
-        include($file);
-        echo('</style>');
-      }
+      if(!$user){ return; }
+      foreach(glob("assets/css/*.css") as $file){ Builder::echoCSS($file); }
+      foreach(glob("assets/css/*.css.php") as $file){ Builder::echoDSS($file); }
 
       $loc = Builder::getLoc();
       if( file_exists($loc) ){ return; }
-      // site specific
-      foreach(glob("build/sites/".$loc."/*.css") as $file){
-        echo('<link rel="stylesheet" href="' . $file . '">');
-      }
-
-      // site specific dss
-      foreach(glob("build/sites/".$loc."/*.css.php") as $file){
-        echo('<style cssSrc="'.$file.'">');
-        include($file);
-        echo('</style>');
-      }
+      foreach(glob("build/sites/".$loc."/*.css") as $file){ Builder::echoCSS($file); }
+      foreach(glob("build/sites/".$loc."/*.css.php") as $file){ Builder::echoDSS($file); }
     }
 
-    public static function loadFonts(){
-      foreach(Builder::$fontArr as $file){
-        echo('<style fontSrc="'.$file.'">');
-        echo('@font-face{');
-        echo('font-family: "' . pathinfo($file)["filename"] . '";');
-        echo('src: url("' . $file . '");');
-        echo('}');
-        echo('</style>');
-      }
+    private static function echoCSS($path){
+      echo('<link rel="stylesheet" href="' . $path . '">');
+    }
 
-      foreach(glob("assets/fonts/*.ttf") as $file){
-        echo('<style fontSrc="'.$file.'">');
-        echo('@font-face{');
-        echo('font-family: "' . pathinfo($file)["filename"] . '";');
-        echo('src: url("' . $file . '");');
-        echo('}');
-        echo('</style>');
-      }
+    private static function echoDSS($path){
+      echo('<style cssSrc="'.$path.'">');
+      include($path);
+      echo('</style>');
+    }
 
-      foreach(glob("assets/fonts/*.otf") as $file){
-        echo('<style fontSrc="'.$file.'">');
-        echo('@font-face{');
-        echo('font-family: "' . pathinfo($file)["filename"] . '";');
-        echo('src: url("' . $file . '");');
-        echo('}');
-        echo('</style>');
-      }
+    public static function loadFonts($user = true){
+      foreach(Builder::$fontArr as $file){ Builder::echoFont($file); }
+      if(!$user){ return; }
+      foreach(glob("assets/fonts/*.ttf") as $file){ Builder::echoFont($file); }
+      foreach(glob("assets/fonts/*.otf") as $file){ Builder::echoFont($file); }
+    }
+
+    private static function echoFont($path){
+      echo('<style fontSrc="'.$path.'">');
+      echo('@font-face{');
+      echo('font-family: "' . pathinfo($path)["filename"] . '";');
+      echo('src: url("' . $path . '");');
+      echo('}');
+      echo('</style>');
     }
 
     public static function getLoc(){
@@ -194,6 +132,11 @@
       }
       return $loc;
     }
+
+    public static function clear(){ ob_end_clean(); }
+    public static function startHead(){ echo('<!DOCTYPE html><html><head>'); }
+    public static function startBody(){ echo('</head><body>'); }
+    public static function end(){ echo('</body></html>'); }
 
   }
 ?>

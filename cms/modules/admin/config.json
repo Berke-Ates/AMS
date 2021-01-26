@@ -1,0 +1,7 @@
+{
+  "enabled": false,
+  "entry": "admin.php",
+  "init": "Admin::init",
+  "dependencies": ["logger","builder","ajaxman"],
+  "verbose": true
+}
