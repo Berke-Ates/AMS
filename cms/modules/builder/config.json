@@ -2,6 +2,7 @@
   "enabled": true,
   "entry": "builder.php",
   "dependencies": ["logger"],
+  "init": "Builder::init",
   "verbose": false,
   "homepage": "home",
   "page404": "404"

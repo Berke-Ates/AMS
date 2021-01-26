@@ -60,10 +60,14 @@ class ModMan{
   }
 
   public static function load($mod){
-    include(ModMan::getRoot($mod) . ModMan::getConfig($mod)->entry);
+    $config = ModMan::getConfig($mod);
+    include(ModMan::getRoot($mod) . $config->entry);
+    if(isset($config->init) ){
+      ModMan::addInit($config->init);
+    }
   }
 
-  public static function addInit($func){
+  private static function addInit($func){
     array_push(ModMan::$initArr, $func);
   }
 

@@ -2,5 +2,6 @@
   "enabled": true,
   "entry": "ajax_man.php",
   "dependencies": ["builder", "logger"],
+  "init": "AjaxMan::init",
   "verbose": false
 }

@@ -1,6 +1,4 @@
 <?php
-ModMan::addInit("AjaxMan::init");
-
 class AjaxMan{
   private static $ajaxArr = [];
 

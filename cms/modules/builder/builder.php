@@ -1,6 +1,4 @@
 <?php
-ModMan::addInit("Builder::init");
-
   class Builder{
 
     private static $jsArr = [];
