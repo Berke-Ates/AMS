@@ -136,7 +136,7 @@
     public static function clear(){ ob_end_clean(); }
     public static function startHead(){ echo('<!DOCTYPE html><html><head>'); }
     public static function startBody(){ echo('</head><body>'); }
-    public static function end(){ echo('</body></html>'); }
+    public static function end(){ echo('</body></html>'); die(); }
 
   }
 ?>

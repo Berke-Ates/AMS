@@ -1,5 +1,5 @@
 {
-  "enabled": false,
+  "enabled": true,
   "entry": "admin.php",
   "init": "Admin::init",
   "dependencies": ["logger","builder","ajaxman"],

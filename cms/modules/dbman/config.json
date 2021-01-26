@@ -1,5 +1,5 @@
 {
-  "enabled": false,
+  "enabled": true,
   "entry": "dbm.php",
   "host":"localhost",
   "username":"user",
