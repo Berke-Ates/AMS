@@ -6,6 +6,7 @@
     private static $dssArr = [];
     private static $fontArr = [];
     private static $locArr = [];
+    private static $partArr = [];
 
     public static function init(){
       foreach(glob("build/php/*.php") as $file){ include($file); }
@@ -25,33 +26,65 @@
     public static function addDSS($path){ array_push(Builder::$dssArr, $path); }
     public static function addFont($path){ array_push(Builder::$fontArr, $path); }
 
+    public static function addPart($name, $path){
+      if(isset(Builder::$partArr[$name])){
+        Logger::log("Part [".$name."] already exists: Old path: [".Builder::$partArr[$name]."], new path: [".$path."]", "ERROR", "Builder", $config->verbose);
+        return;
+      }
+      Builder::$partArr[$name] = $path;
+    }
+
     public static function loadPart($part){
       $config = ModMan::getConfig("builder");
-      $path = "build/parts/" . $part . ".phtml";
-      if(!file_exists($path)){
+
+      if(isset(Builder::$partArr[$part])){
+        if(file_exists(Builder::$partArr[$part])){
+          Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
+          include(Builder::$partArr[$part]);
+          return;
+        }
+        
         Logger::log("Part not found: " . $part, "ERROR", "Builder", $config->verbose);
         return;
       }
-      include($path);
-      Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
+
+      if(file_exists("build/parts/" . $part . ".phtml")){
+        Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
+        include($path);
+        return;
+      }
+
+      if(file_exists("build/parts/" . $part . ".html")){
+        Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
+        include($path);
+        return;
+      }
+
+      Logger::log("Part not found: " . $part, "ERROR", "Builder", $config->verbose);
     }
 
     public static function loadSite(){
       $loc = Builder::getLoc();
       $config = ModMan::getConfig("builder");
+
       if( file_exists($loc) ){
+        Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
         include($loc);
-        Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
-        return;
-      } else if( file_exists("build/sites/". $loc . "/" . $loc .".phtml") ){
-        include("build/sites/" . $loc . "/" . $loc . ".phtml");
-        Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
-        return;
-      } else if( file_exists("build/sites/". $loc . "/" . $loc .".html") ){
-        include("build/sites/". $loc . "/" . $loc . ".html");
-        Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
         return;
       }
+
+      if( file_exists("build/sites/". $loc . "/" . $loc .".phtml") ){
+        Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
+        include("build/sites/" . $loc . "/" . $loc . ".phtml");
+        return;
+      }
+
+      if( file_exists("build/sites/". $loc . "/" . $loc .".html") ){
+        Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
+        include("build/sites/". $loc . "/" . $loc . ".html");
+        return;
+      }
+
       Logger::log("Site not found: " . $loc, "ERROR", "Builder", $config->verbose);
     }
 
@@ -124,9 +157,7 @@
       $loc = "";
       if( isset($_GET['loc']) ){ $loc = $_GET['loc']; }
       if( empty($loc) || $loc == "" ){ $loc = $config->homepage; }
-      if(isset(Builder::$locArr[$loc])){
-        return Builder::$locArr[$loc];
-      }
+      if(isset(Builder::$locArr[$loc])){ return Builder::$locArr[$loc]; }
       if(!file_exists("build/sites/". $loc . "/" . $loc .".phtml") && !file_exists("build/sites/". $loc . "/" . $loc .".html")){
         $loc = $config->page404;
       }
