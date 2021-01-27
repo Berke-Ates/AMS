@@ -43,20 +43,19 @@
           include(Builder::$partArr[$part]);
           return;
         }
-        
-        Logger::log("Part not found: " . $part, "ERROR", "Builder", $config->verbose);
-        return;
+
+        Logger::log("Part [".$part."] path undefined: " . Builder::$partArr[$part], "ERROR", "Builder", $config->verbose);
       }
 
       if(file_exists("build/parts/" . $part . ".phtml")){
         Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
-        include($path);
+        include("build/parts/" . $part . ".phtml");
         return;
       }
 
       if(file_exists("build/parts/" . $part . ".html")){
         Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
-        include($path);
+        include("build/parts/" . $part . ".html");
         return;
       }
 
