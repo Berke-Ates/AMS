@@ -3,8 +3,7 @@
   include("cms/modman.php");
 
   // include all modules
-  $modules = array_slice(scandir("cms/modules"),2);
-  foreach ($modules as $module) {
+  foreach (ModMan::getModRoots() as $module) {
     if(!ModMan::check($module,true)){ continue; }
     $config = ModMan::getConfig($module);
 

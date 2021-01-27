@@ -31,6 +31,10 @@ class ModMan{
     return true;
   }
 
+  public static function getModRoots(){
+    return array_slice(scandir("cms/modules"),2);
+  }
+
   public static function getRoot($mod){
     return "cms/modules/" . $mod . "/";
   }
