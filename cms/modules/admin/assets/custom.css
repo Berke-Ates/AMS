@@ -1,0 +1,9 @@
+.sb-topnav .navbar-brand{
+  font-family: Quantum;
+  font-size: 85px;
+  margin-top: -5px;
+}
+
+.sb-topnav.navbar-dark #sidebarToggle{
+  color: #fff;
+}

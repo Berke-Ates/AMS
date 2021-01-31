@@ -2,6 +2,6 @@
   "enabled": true,
   "entry": "admin.php",
   "init": "Admin::init",
-  "dependencies": ["logger","builder","ajaxman"],
+  "dependencies": ["logger","builder"],
   "verbose": true
 }

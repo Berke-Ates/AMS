@@ -1,15 +1,6 @@
 <?php
+Admin::prep();
 Builder::clear();
-Builder::startHead();
-Builder::loadCSS(false);
-Builder::loadFonts(false);
-
-Builder::startBody();
-?>
-
-hello
-
-<?php
-Builder::loadJS(false);
+include("cms/modules/" . Admin::getLoc());
 Builder::end();
 ?>
