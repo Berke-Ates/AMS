@@ -37,7 +37,7 @@
 
                   <div class="sb-sidenav-menu-heading">Modules</div>
 
-                  <?php $count = 0; foreach(Admin::getAdminConfigs() as $conf){ ?>
+                  <?php $count = 0; foreach(Admin::getConfigs() as $conf){ ?>
                     <a class="nav-link collapsed <?php if(explode("/",Admin::getLoc())[0] == $conf->mod){ echo "active"; } ?>" href="" data-toggle="collapse" data-target="#collapseLayouts<?php echo $count; ?>" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="<?php echo $conf->icon; ?>"></i></div>
                         <?php echo $conf->name; ?>
