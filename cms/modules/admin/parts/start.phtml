@@ -38,15 +38,16 @@
                   <div class="sb-sidenav-menu-heading">Modules</div>
 
                   <?php $count = 0; foreach(Admin::getConfigs() as $conf){ ?>
-                    <a class="nav-link collapsed <?php if(explode("/",Admin::getLoc())[0] == $conf->mod){ echo "active"; } ?>" href="" data-toggle="collapse" data-target="#collapseLayouts<?php echo $count; ?>" aria-expanded="false" aria-controls="collapseLayouts">
+                    <?php $currMod = explode("/",Admin::getLoc())[0] == $conf->mod; ?>
+                    <a class="nav-link <?php if($currMod){ echo "active"; } else { echo "collapsed" ;} ?>" href="" data-toggle="collapse" data-target="#collapseLayouts<?php echo $count; ?>" aria-expanded="<?php echo $currMod; ?>" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="<?php echo $conf->icon; ?>"></i></div>
                         <?php echo $conf->name; ?>
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapseLayouts<?php echo $count; ?>" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                    <div class="collapse <?php if($currMod){ echo "show"; } ?>" id="collapseLayouts<?php echo $count; ?>" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                           <?php foreach($conf->links as $link){ ?>
-                            <a class="nav-link <?php if(explode("/",Admin::getLoc())[0] == $conf->mod && Admin::getLoc() == explode("&",$link->link)[0]){ echo "active"; } ?>" href="?loc=admin&admin_loc=<?php echo $link->link; ?>"><?php echo $link->name; ?></a>
+                            <a class="nav-link <?php if($currMod && Admin::getLoc() == explode("&",$link->link)[0]){ echo "active"; } ?>" href="?loc=admin&admin_loc=<?php echo $link->link; ?>"><?php echo $link->name; ?></a>
                           <?php } ?>
                         </nav>
                     </div>
