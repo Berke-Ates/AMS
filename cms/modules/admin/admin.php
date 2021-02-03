@@ -12,6 +12,9 @@ class Admin{
     Builder::addFont($root . "assets/Quantum.otf");
     Builder::addPart("admin_start", $root . "parts/start.phtml");
     Builder::addPart("admin_end", $root . "parts/end.phtml");
+    Builder::addPart("admin_title", $root . "parts/title.phtml");
+    Builder::addPart("admin_breadcrumbs", $root . "parts/breadcrumbs.phtml");
+    Builder::addPart("admin_card", $root . "parts/card.phtml");
 
     Builder::addCSS("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css");
     Builder::addCSS("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
@@ -70,5 +73,26 @@ class Admin{
     return $adConfs;
   }
 
+  public static function addTitle($title){
+    global $admin_title;
+    $admin_title = $title;
+    Builder::loadPart("admin_title");
+  }
+
+  public static function addBreadcrumbs($items){
+    global $admin_items;
+    $admin_items = $items;
+    Builder::loadPart("admin_breadcrumbs");
+  }
+
+  public static function addCard($title,$icon,$content){
+    global $admin_title;
+    $admin_title = $title;
+    global $admin_icon;
+    $admin_icon = $icon;
+    global $admin_content;
+    $admin_content = $content;
+    Builder::loadPart("admin_card");
+  }
 }
  ?>

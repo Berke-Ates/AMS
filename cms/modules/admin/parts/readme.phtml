@@ -6,34 +6,18 @@
   Builder::loadPart("admin_start");
 ?>
 
-<div class="container-fluid">
-    <h1 class="mt-4">Readme</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><?php echo Admin::getConfig($_GET['mod'])->name; ?></li>
-        <li class="breadcrumb-item active">Readme</li>
-    </ol>
+<?php
+  Admin::addTitle("Readme");
+  $items = [Admin::getConfig($_GET['mod'])->name, "Readme"];
+  Admin::addBreadcrumbs($items);
 
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-file-alt mr-1"></i>
-            <?php echo Admin::getConfig($_GET['mod'])->name; ?>
-        </div>
-        <div class="card-body">
-          <?php
-            $root = ModMan::getRoot("admin");
-            include($root . "parts/Parsedown.php");
-            $path = "cms/modules/" . $_GET['mod'] . "/readme.md";
-            if(file_exists($path)){
-              echo Parsedown::instance()->text(file_get_contents($path ));
-            } else {
-              echo "No Readme found";
-            }
-           ?>
-        </div>
-    </div>
-
-
-</div>
+  $root = ModMan::getRoot("admin");
+  include($root . "parts/Parsedown.php");
+  $path = "cms/modules/" . $_GET['mod'] . "/readme.md";
+  $content = "No Readme found";
+  if(file_exists($path)){ $content =  Parsedown::instance()->text(file_get_contents($path)); }
+  Admin::addCard(Admin::getConfig($_GET['mod'])->name,"fas fa-file-alt",$content);
+ ?>
 
 <?php
   Builder::loadPart("admin_end");
