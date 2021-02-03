@@ -4,6 +4,7 @@ class Admin{
   public static function init(){
     $root = ModMan::getRoot("admin");
     Builder::addLoc("admin", $root . "parts/adminpage.phtml");
+    AjaxMan::add("setDarkMode", "Admin::setDarkMode");
   }
 
   public static function prep(){
@@ -20,10 +21,14 @@ class Admin{
     Builder::addCSS("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
     Builder::addCSS($root . "assets/style.css");
     Builder::addCSS($root . "assets/custom.css");
+    Builder::addCSS($root . "assets/darkswitch.css");
 
     Builder::addJS("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js");
     Builder::addJS("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js");
     Builder::addJS($root . "assets/script.js");
+    if(ModMan::getConfig("admin")->darkmode){
+      Builder::addJS($root . "assets/darkmodechecker.js");
+    }
   }
 
   public static function getLoc(){
@@ -93,6 +98,17 @@ class Admin{
     global $admin_content;
     $admin_content = $content;
     Builder::loadPart("admin_card");
+  }
+
+  public static function setDarkMode(){
+    $conf = ModMan::getConfig("admin");
+    if($_POST['mode'] == "false"){
+      $conf->darkmode = false;
+    } else {
+      $conf->darkmode = true;
+    }
+    ModMan::setConfig("admin", $conf);
+    AjaxMan::ret("Darkmode saved: " . $_POST['mode']);
   }
 }
  ?>
