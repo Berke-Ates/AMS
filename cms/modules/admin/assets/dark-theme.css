@@ -53,3 +53,15 @@
 .dark-theme .dropdown-divider{
   border-color: rgba(255,255,255,0.25);
 }
+
+.dark-theme table{
+  color: #fff;
+}
+
+.dark-theme .table thead th{
+  border-color: rgba(255,255,255,0.25);
+}
+
+.dark-theme .table-bordered th, .dark-theme .table-bordered td{
+  border-color: rgba(255,255,255,0.25);
+}
