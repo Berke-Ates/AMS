@@ -31,7 +31,7 @@ function toggleDarkTheme(){
 
   let dat = new FormData();
   dat.append("mode",$("body").hasClass("dark-theme"));
-  getAjax("setDarkMode",dat,(r) => console.log(r));
+  getAjax("setDarkMode",dat,(r) => {});
 }
 
 $('.dropdown').on('show.bs.dropdown', function() {
