@@ -28,8 +28,16 @@ $("body").addClass("sb-nav-fixed");
 
 function toggleDarkTheme(){
   $('body').toggleClass('dark-theme');
-  
+
   let dat = new FormData();
   dat.append("mode",$("body").hasClass("dark-theme"));
   getAjax("setDarkMode",dat,(r) => console.log(r));
 }
+
+$('.dropdown').on('show.bs.dropdown', function() {
+  $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+});
+
+$('.dropdown').on('hide.bs.dropdown', function() {
+  $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+});

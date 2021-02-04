@@ -1,0 +1,55 @@
+
+.dark-theme{
+  background: #484d51;
+  color: #fff;
+}
+
+.dark-theme footer, .dark-theme footer .text-muted{
+  background: #212529 !important;
+  color: #fff !important;
+}
+
+.dark-theme .card{
+  background: #484d51;
+  color: #fff;
+  border-color: rgba(255,255,255,0.25);
+}
+
+.dark-theme .card-header{
+  background: #5e646b;
+  color: #fff;
+  border-color: rgba(255,255,255,0.25);
+}
+
+.dark-theme .breadcrumb{
+  background: #5e646b;
+  color: #fff;
+}
+
+.dark-theme .breadcrumb-item.active{
+  color: #ddd;
+}
+
+.dark-theme .breadcrumb-item::before{
+  color: #ddd;
+}
+
+.dark-theme a{
+  color: #6db4ff;
+}
+
+.dark-theme a:hover{
+  color: #1f8bff;
+}
+
+.dark-theme .dropdown-menu{
+  background: #212529;
+}
+
+.dark-theme .dropdown-item:hover, .dark-theme .dropdown-item:focus{
+  background: #343a40;
+}
+
+.dark-theme .dropdown-divider{
+  border-color: rgba(255,255,255,0.25);
+}

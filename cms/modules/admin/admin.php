@@ -21,14 +21,13 @@ class Admin{
     Builder::addCSS("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
     Builder::addCSS($root . "assets/style.css");
     Builder::addCSS($root . "assets/custom.css");
+    Builder::addCSS($root . "assets/dark-theme.css");
     Builder::addCSS($root . "assets/darkswitch.css");
 
     Builder::addJS("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js");
     Builder::addJS("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js");
     Builder::addJS($root . "assets/script.js");
-    if(ModMan::getConfig("admin")->darkmode){
-      Builder::addJS($root . "assets/darkmodechecker.js");
-    }
+    if(ModMan::getConfig("admin")->darkmode){ Builder::addBodyClass("dark-theme"); }
   }
 
   public static function getLoc(){

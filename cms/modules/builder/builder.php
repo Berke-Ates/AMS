@@ -7,6 +7,7 @@
     private static $fontArr = [];
     private static $locArr = [];
     private static $partArr = [];
+    private static $classArr = [];
 
     public static function init(){
       foreach(glob("build/php/*.php") as $file){ include($file); }
@@ -163,9 +164,15 @@
       return $loc;
     }
 
+    public static function addBodyClass($class){ array_push(Builder::$classArr, $class); }
+
     public static function clear(){ ob_end_clean(); }
     public static function startHead(){ echo('<!DOCTYPE html><html><head>'); }
-    public static function startBody(){ echo('</head><body>'); }
+    public static function startBody(){
+      $classes = "";
+      foreach(Builder::$classArr as $class){ $classes = $classes . " " . $class; }
+      echo('</head><body class="'.$classes.'">');
+    }
     public static function end(){ echo('</body></html>'); die(); }
 
   }

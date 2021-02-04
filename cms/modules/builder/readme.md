@@ -66,6 +66,11 @@ Allows you to add any font to the queue. Will be loaded by `Builder::loadFonts()
 
 Allows you to add custom locations. These have priority over the sites in the sites folder.
 
+#### `Builder::addBodyClass($class)`
+> `$class::String` The class to add to the body tag
+
+Allows you to add classes to the body tag for various css rules (for example a dark theme).
+
 #### `Builder::startHead()`
 
 Starts the head section of the html.
