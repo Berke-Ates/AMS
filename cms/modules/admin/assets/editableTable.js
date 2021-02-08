@@ -1,3 +1,4 @@
+// https://github.com/mindmup/editable-table
 /*global $, window*/
 $.fn.editableTableWidget = function (options) {
 	'use strict';
