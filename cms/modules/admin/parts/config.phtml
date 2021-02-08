@@ -6,7 +6,29 @@
   Builder::loadPart("admin_start");
 ?>
 
-Config
+<?php
+  function jsonToTable($data){
+    $table = '<table class="table table-bordered table-editable">';
+    foreach($data as $key => $value) {
+      $table .= '<tr valign="top">';
+      if(!is_numeric($key)){ $table .= '<td class="immutable"><strong>'. $key .':</strong></td><td>'; }
+      else { $table .= '<td colspan="2">'; }
+      if(is_object($value) || is_array($value)){ $table .= jsonToTable($value); }
+      else { $table .= json_encode($value); }
+      $table .= '</td></tr>';
+    }
+    $table .= '</table>';
+    return $table;
+  }
+
+  Admin::addTitle("Config");
+  $items = [Admin::getConfig($_GET['mod'])->name, "Config"];
+  Admin::addBreadcrumbs($items);
+
+  $path = "cms/modules/" . $_GET['mod'] . "/config.json";
+  $content = jsonToTable(json_decode(file_get_contents($path)));
+  Admin::addCard(Admin::getConfig($_GET['mod'])->name,"fas fa-file-alt",$content);
+ ?>
 
 <?php
   Builder::loadPart("admin_end");

@@ -1653,7 +1653,8 @@ pre code {
 }
 .table {
   width: 100%;
-  margin-bottom: 1rem;
+  /*margin-bottom: 1rem;*/
+  margin-bottom: 0px;
   color: #212529;
 }
 .table th,

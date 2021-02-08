@@ -26,6 +26,7 @@ class Admin{
 
     Builder::addJS("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js");
     Builder::addJS("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js");
+    Builder::addJS($root . "assets/editableTable.js");
     Builder::addJS($root . "assets/script.js");
     if(ModMan::getConfig("admin")->darkmode){ Builder::addBodyClass("dark-theme"); }
   }
