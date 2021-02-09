@@ -1,5 +1,6 @@
 <?php
   Builder::startHead();
+  Builder::loadPart("admin_header");
   Builder::loadCSS(false);
   Builder::loadFonts(false);
   Builder::startBody();
@@ -29,7 +30,7 @@
                                     </div>
                                     <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <a class="small" href="password.html">Forgot Password?</a>
-                                        <a class="btn btn-primary" onclick="login('loginEmailAddress','loginPassword', 'loginMessage');">Login</a>
+                                        <a class="btn btn-primary" id="loginButton" onclick="login('loginEmailAddress','loginPassword', 'loginMessage');">Login</a>
                                     </div>
                                 </form>
                             </div>
@@ -47,7 +48,10 @@
     </div>
 </div>
 
-<?php
-  Builder::loadJS(false);
-  Builder::end();
-?>
+<?php Builder::loadJS(false); ?>
+
+<script>
+  $('input').keypress((e) => { if(e.keyCode==13) $('#loginButton').click(); } );
+</script>
+
+<?php Builder::end(); ?>
