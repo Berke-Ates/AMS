@@ -42,6 +42,14 @@
   color: #1f8bff;
 }
 
+.dark-theme a.btn-primary{
+  color: #fff;
+}
+
+.dark-theme a.btn:hover{
+  color: #fff;
+}
+
 .dark-theme .dropdown-menu{
   background: #212529;
 }
@@ -64,4 +72,8 @@
 
 .dark-theme .table-bordered th, .dark-theme .table-bordered td{
   border-color: rgba(255,255,255,0.25);
+}
+
+.dark-theme .shadow-lg{
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.5) !important;
 }

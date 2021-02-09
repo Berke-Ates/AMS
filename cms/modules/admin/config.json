@@ -4,5 +4,11 @@
   "init": "Admin::init",
   "dependencies": ["logger","builder","ajaxman"],
   "verbose": false,
-  "darkmode": true
+  "users":[
+    {
+      "ID": 0,
+      "username": "admin",
+      "password": "$2y$10$ji.gm9VEHzbQSY5cLpNxYOQnpB5R2f4ydAiq1Bs\/Fp7s\/YdZVoYiC"
+    }
+  ]
 }

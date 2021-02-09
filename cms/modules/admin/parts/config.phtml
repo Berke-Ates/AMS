@@ -7,7 +7,7 @@
 ?>
 
 <?php
-  function jsonToTable($data,$excl){
+  function jsonToTable($data, $excl, $exclOW){
     $table = '<table class="table table-bordered table-editable">';
     foreach($data as $key => $value) {
       $table .= '<tr valign="top">';
@@ -15,10 +15,10 @@
 
       $table .= '<td ';
       if(is_numeric($key)){ $table .= 'colspan="2" '; }
-      if(in_array($key, $excl)){ $table .= 'class="immutable" '; }
+      if($exclOW || in_array($key, $excl)){ $table .= 'class="immutable" '; }
       $table .= '>';
 
-      if(is_object($value) || is_array($value)){ $table .= jsonToTable($value, $excl); }
+      if(is_object($value) || is_array($value)){ $table .= jsonToTable($value, $excl, $exclOW || in_array($key, $excl)); }
       else { $table .= json_encode($value); }
       $table .= '</td></tr>';
     }
@@ -34,7 +34,7 @@
   $excl = [];
   if(isset($conf->immutableKeys)){ $excl = $conf->immutableKeys;  }
   $path = "cms/modules/" . $_GET['mod'] . "/config.json";
-  $content = jsonToTable(json_decode(file_get_contents($path)),$excl);
+  $content = jsonToTable(json_decode(file_get_contents($path)),$excl,false);
   Admin::addCard($conf->name,"fas fa-wrench",$content);
  ?>
 

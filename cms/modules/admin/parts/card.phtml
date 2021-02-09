@@ -1,15 +1,11 @@
-<?php
-  global $admin_title;
-  global $admin_icon;
-  global $admin_content;
- ?>
+<?php global $admin_params; ?>
 
 <div class="card mb-4">
     <div class="card-header">
-        <i class="<?php echo $admin_icon; ?> mr-1"></i>
-        <?php echo $admin_title; ?>
+        <i class="<?php echo $admin_params["icon"]; ?> mr-1"></i>
+        <?php echo $admin_params["title"]; ?>
     </div>
     <div class="card-body">
-      <?php echo $admin_content; ?>
+      <?php echo $admin_params["content"]; ?>
     </div>
 </div>

@@ -1,10 +1,10 @@
-<?php global $admin_items; ?>
+<?php global $admin_params; ?>
 
 <ol class="breadcrumb mb-4">
     <?php
-      for($i = 0; $i < count($admin_items)-1; $i++) {
-        echo '<li class="breadcrumb-item">'.$admin_items[$i].'</li>';
+      for($i = 0; $i < count($admin_params["items"])-1; $i++) {
+        echo '<li class="breadcrumb-item">'.$admin_params["items"][$i].'</li>';
       }
     ?>
-    <li class="breadcrumb-item active"><?php echo $admin_items[count($admin_items)-1]; ?></li>
+    <li class="breadcrumb-item active"><?php echo $admin_params["items"][count($admin_params["items"])-1]; ?></li>
 </ol>

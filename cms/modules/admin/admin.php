@@ -4,7 +4,17 @@ class Admin{
   public static function init(){
     $root = ModMan::getRoot("admin");
     Builder::addLoc("admin", $root . "parts/adminpage.phtml");
-    AjaxMan::add("setDarkMode", "Admin::setDarkMode");
+    AjaxMan::add("admin_login", "Admin::login");
+    AjaxMan::add("admin_logout", "Admin::logout");
+    AjaxMan::add("admin_setDarkMode", "Admin::setDarkMode");
+
+    /*$conf = ModMan::getConfig("admin");
+    foreach($conf->users as $user){
+      if($user->ID == 0){
+        $user->password = password_hash("admin", PASSWORD_DEFAULT);
+      }
+    }
+    ModMan::setConfig("admin", $conf);*/
   }
 
   public static function prep(){
@@ -16,6 +26,9 @@ class Admin{
     Builder::addPart("admin_title", $root . "parts/title.phtml");
     Builder::addPart("admin_breadcrumbs", $root . "parts/breadcrumbs.phtml");
     Builder::addPart("admin_card", $root . "parts/card.phtml");
+    Builder::addPart("admin_login", $root . "parts/login.phtml");
+    Builder::addPart("admin_footer", $root . "parts/footer.phtml");
+    Builder::addPart("admin_navbar", $root . "parts/navbar.phtml");
 
     Builder::addCSS("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css");
     Builder::addCSS("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
@@ -28,7 +41,8 @@ class Admin{
     Builder::addJS("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js");
     Builder::addJS($root . "assets/editableTable.js");
     Builder::addJS($root . "assets/script.js");
-    if(ModMan::getConfig("admin")->darkmode){ Builder::addBodyClass("dark-theme"); }
+
+    if($_SESSION['admin']['darkmode']){ Builder::addBodyClass("dark-theme"); }
   }
 
   public static function getLoc(){
@@ -79,36 +93,69 @@ class Admin{
   }
 
   public static function addTitle($title){
-    global $admin_title;
-    $admin_title = $title;
+    global $admin_params;
+    $admin_params["title"] = $title;
     Builder::loadPart("admin_title");
   }
 
   public static function addBreadcrumbs($items){
-    global $admin_items;
-    $admin_items = $items;
+    global $admin_params;
+    $admin_params["items"] = $items;
     Builder::loadPart("admin_breadcrumbs");
   }
 
   public static function addCard($title,$icon,$content){
-    global $admin_title;
-    $admin_title = $title;
-    global $admin_icon;
-    $admin_icon = $icon;
-    global $admin_content;
-    $admin_content = $content;
+    global $admin_params;
+    $admin_params["title"] = $title;
+    $admin_params["icon"] = $icon;
+    $admin_params["content"] = $content;
     Builder::loadPart("admin_card");
   }
 
   public static function setDarkMode(){
-    $conf = ModMan::getConfig("admin");
-    if($_POST['mode'] == "false"){
-      $conf->darkmode = false;
-    } else {
-      $conf->darkmode = true;
-    }
-    ModMan::setConfig("admin", $conf);
+    if($_POST['mode'] == "false"){ $_SESSION['admin']['darkmode'] = false; }
+    else { $_SESSION['admin']['darkmode'] = true; }
     AjaxMan::ret("Darkmode saved: " . $_POST['mode']);
+  }
+
+  public static function login(){
+    $UN = $_POST['username'];
+    $PW = $_POST['password'];
+    $users = ModMan::getConfig("admin")->users;
+
+    $doubleLoginUser = Admin::getUser();
+    if($doubleLoginUser != NULL){
+      Logger::log("Double login: Username: " . $doubleLoginUser->username,"WARNING","Admin",false);
+      AjaxMan::ret(["success" => false, "msg" => "Already logged in"]);
+    }
+
+    foreach($users as $user){
+      if($user->username != $UN){ continue; }
+      if(!password_verify($PW, $user->password)){
+        Logger::log("Unsuccessful login attempt: Username: " . $UN,"WARNING","Admin",false);
+        AjaxMan::ret(["success" => false, "msg" => "Wrong password"]);
+      }
+      $_SESSION['admin']['userID'] = $user->ID;
+      Logger::log("Logged in: Username: " . $UN,"INFO","Admin",false);
+      AjaxMan::ret(["success" => true, "msg" => "Logged in!"]);
+    }
+
+    Logger::log("Unsuccessful login attempt: Username: " . $UN,"WARNING","Admin",false);
+    AjaxMan::ret(["success" => false, "msg" => "User not found"]);
+  }
+
+  public static function logout(){
+    unset($_SESSION['admin']['userID']);
+    AjaxMan::ret("Logged out");
+  }
+
+  public static function getUser(){
+    if(!isset($_SESSION['admin']['userID'])){ return NULL; }
+    $users = ModMan::getConfig("admin")->users;
+    foreach($users as $user){
+      if($user->id != $_SESSION['admin']['userID']){ continue; }
+      return $user;
+    }
   }
 }
  ?>

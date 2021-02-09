@@ -31,7 +31,7 @@ function toggleDarkTheme(){
 
   let dat = new FormData();
   dat.append("mode",$("body").hasClass("dark-theme"));
-  getAjax("setDarkMode",dat,(r) => {});
+  getAjax("admin_setDarkMode",dat,(r) => {});
 }
 
 $('.dropdown').on('show.bs.dropdown', function() {
@@ -41,3 +41,23 @@ $('.dropdown').on('show.bs.dropdown', function() {
 $('.dropdown').on('hide.bs.dropdown', function() {
   $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
 });
+
+function login(us,pw,msg){
+  let dat = new FormData();
+  dat.append("username", $("#" + us).val());
+  dat.append("password", $("#" + pw).val());
+
+  getAjax("admin_login",dat,(r) => {
+    if(!$("#" + msg).is(':empty')){
+      $("#" + msg).addClass("blinkRed");
+      setTimeout(() => $("#" + msg).removeClass('blinkRed'), 750);
+    }
+    $("#" + msg).html(r.msg);
+    if(r.success) setTimeout(() => location.reload(), 1000);
+  });
+}
+
+function logout(){
+  let dat = new FormData();
+  getAjax("admin_logout",dat,(r) => {location.reload();});
+}

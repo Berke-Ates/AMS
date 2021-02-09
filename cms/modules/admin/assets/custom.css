@@ -7,3 +7,21 @@
 .sb-topnav.navbar-dark #sidebarToggle{
   color: #fff;
 }
+
+@keyframes blinkRed {
+    0% {
+      color: #inherit;
+    }
+
+    25% {
+      color: #ff0000;
+    }
+
+    100% {
+      color: inherit;
+    }
+}
+
+.blinkRed {
+    animation: blinkRed 0.75s;
+}

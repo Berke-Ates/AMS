@@ -1,6 +1,12 @@
 <?php
 Admin::prep();
 Builder::clear();
-include("cms/modules/" . Admin::getLoc());
+
+if(Admin::getUser() == NULL){
+  Builder::loadPart("admin_login");
+} else {
+  include("cms/modules/" . Admin::getLoc());
+}
+
 Builder::end();
 ?>
