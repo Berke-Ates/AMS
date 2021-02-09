@@ -25,3 +25,21 @@
 .blinkRed {
     animation: blinkRed 0.75s;
 }
+
+@keyframes blinkGreen {
+    0% {
+      color: #inherit;
+    }
+
+    25% {
+      color: #00ff00;
+    }
+
+    100% {
+      color: inherit;
+    }
+}
+
+.blinkGreen {
+    animation: blinkGreen 0.75s;
+}

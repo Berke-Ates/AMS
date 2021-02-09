@@ -49,9 +49,15 @@ function login(us,pw,msg){
 
   getAjax("admin_login",dat,(r) => {
     if(!$("#" + msg).is(':empty')){
-      $("#" + msg).addClass("blinkRed");
-      setTimeout(() => $("#" + msg).removeClass('blinkRed'), 750);
+      if(r.success){
+        $("#" + msg).addClass("blinkGreen");
+        setTimeout(() => $("#" + msg).removeClass('blinkGreen'), 750);
+      } else {
+        $("#" + msg).addClass("blinkRed");
+        setTimeout(() => $("#" + msg).removeClass('blinkRed'), 750);
+      }
     }
+
     $("#" + msg).html(r.msg);
     if(r.success) setTimeout(() => location.reload(), 1000);
   });
