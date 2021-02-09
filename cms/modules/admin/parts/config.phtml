@@ -7,13 +7,18 @@
 ?>
 
 <?php
-  function jsonToTable($data){
+  function jsonToTable($data,$excl){
     $table = '<table class="table table-bordered table-editable">';
     foreach($data as $key => $value) {
       $table .= '<tr valign="top">';
-      if(!is_numeric($key)){ $table .= '<td class="immutable"><strong>'. $key .':</strong></td><td>'; }
-      else { $table .= '<td colspan="2">'; }
-      if(is_object($value) || is_array($value)){ $table .= jsonToTable($value); }
+      if(!is_numeric($key)){ $table .= '<td class="immutable"><strong>'. $key .':</strong></td>'; }
+
+      $table .= '<td ';
+      if(is_numeric($key)){ $table .= 'colspan="2" '; }
+      if(in_array($key, $excl)){ $table .= 'class="immutable" '; }
+      $table .= '>';
+
+      if(is_object($value) || is_array($value)){ $table .= jsonToTable($value, $excl); }
       else { $table .= json_encode($value); }
       $table .= '</td></tr>';
     }
@@ -22,12 +27,15 @@
   }
 
   Admin::addTitle("Config");
-  $items = [Admin::getConfig($_GET['mod'])->name, "Config"];
+  $conf = Admin::getConfig($_GET['mod']);
+  $items = [$conf->name, "Config"];
   Admin::addBreadcrumbs($items);
 
+  $excl = [];
+  if(isset($conf->immutableKeys)){ $excl = $conf->immutableKeys;  }
   $path = "cms/modules/" . $_GET['mod'] . "/config.json";
-  $content = jsonToTable(json_decode(file_get_contents($path)));
-  Admin::addCard(Admin::getConfig($_GET['mod'])->name,"fas fa-file-alt",$content);
+  $content = jsonToTable(json_decode(file_get_contents($path)),$excl);
+  Admin::addCard($conf->name,"fas fa-wrench",$content);
  ?>
 
 <?php
