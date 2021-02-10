@@ -2,5 +2,6 @@
   "icon": "fas fa-user-shield",
   "name": "Admin",
   "immutableKeys":["entry","init","dependencies","users"],
+  "hiddenKeys":["password"],
   "links": []
 }

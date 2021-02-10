@@ -93,6 +93,25 @@ class Admin{
     return $adConfs;
   }
 
+  public static function editConfig(){
+    Admin::checkAccess();
+    $mod = $_POST["mod"];
+    $keypath = $_POST["path"];
+    $val = $_POST["val"];
+
+    $config = ModMan::getConfig($mod);
+    $adConfig = Admin::getConfig($mod);
+
+    $immut = [];
+    if(isset($adConfig->immutableKeys)){ $immut = $adConfig->immutableKeys;  }
+    if(isset($adConfig->hiddenKeys)){ $immut = array_merge($immut, $adConfig->hiddenKeys);  }
+
+    // TODO: Perform config edit
+
+    ModMan::setConfig($mod, $config);
+    AjaxMan::ret(["success" => true, "msg" => "Config edited"]);
+  }
+
   public static function addTitle($title){
     global $admin_params;
     $admin_params["title"] = $title;
@@ -156,6 +175,13 @@ class Admin{
     foreach($users as $user){
       if($user->id != $_SESSION['admin']['userID']){ continue; }
       return $user;
+    }
+  }
+
+  public static function checkAccess(){
+    if(Admin::getUser == NULL){
+      Logger::log("Forbidden access attempt by: " . $_SERVER["REMOTE_ADDR"],"WARNING","Admin",false);
+      AjaxMan::ret("Access Denied. Attempt logged.");
     }
   }
 }

@@ -8,19 +8,30 @@
 ?>
 
 <?php
-  function jsonToTable($data, $excl, $exclOW){
+  function jsonToTable($data, $immut, $hide, $parent = []){
     $table = '<table class="table table-bordered table-editable">';
     foreach($data as $key => $value) {
+      $skip = in_array($key, $hide, true);
+      foreach($parent as $prt){ $skip = $skip || in_array($prt, $hide, true); }
+
+      $excl = in_array($key, $immut, true);
+      foreach($parent as $prt){ $excl = $excl || in_array($prt, $immut, true); }
+
       $table .= '<tr valign="top">';
       if(!is_numeric($key)){ $table .= '<td class="immutable"><strong>'. $key .':</strong></td>'; }
 
       $table .= '<td ';
       if(is_numeric($key)){ $table .= 'colspan="2" '; }
-      if($exclOW || in_array($key, $excl)){ $table .= 'class="immutable" '; }
+      if($excl || $skip){ $table .= 'class="immutable" '; }
       $table .= '>';
 
-      if(is_object($value) || is_array($value)){ $table .= jsonToTable($value, $excl, $exclOW || in_array($key, $excl)); }
-      else { $table .= json_encode($value); }
+      if($skip){
+        $table .= "<i>HIDDEN</i>";
+      } else {
+        if(is_object($value) || is_array($value)){ $table .= jsonToTable($value, $immut, $hide, array_merge($parent, [$key])); }
+        else { $table .= json_encode($value); }
+      }
+
       $table .= '</td></tr>';
     }
     $table .= '</table>';
@@ -32,10 +43,12 @@
   $items = [$conf->name, "Config"];
   Admin::addBreadcrumbs($items);
 
-  $excl = [];
-  if(isset($conf->immutableKeys)){ $excl = $conf->immutableKeys;  }
+  $immut = [];
+  if(isset($conf->immutableKeys)){ $immut = $conf->immutableKeys;  }
+  $hide = [];
+  if(isset($conf->hiddenKeys)){ $hide = $conf->hiddenKeys;  }
   $path = "cms/modules/" . $_GET['mod'] . "/config.json";
-  $content = jsonToTable(json_decode(file_get_contents($path)),$excl,false);
+  $content = jsonToTable(json_decode(file_get_contents($path)),$immut,$hide);
   Admin::addCard($conf->name,"fas fa-wrench",$content);
  ?>
 
