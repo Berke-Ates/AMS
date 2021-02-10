@@ -9,7 +9,7 @@ class Logger{
       $text = "[".date(DATE_RFC822)."] " . $text;
     }
 
-    if($verbose){ echo '<script>console.log("'.$text.'")</script>'; };
+    if($verbose){ echo "<script>console.log('".$text."')</script>"; };
     if(!$config->savelog){ return; }
 
     $log = fopen($root . "logs.txt", "a");
