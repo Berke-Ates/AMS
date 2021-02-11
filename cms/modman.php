@@ -43,6 +43,10 @@ class ModMan{
     return json_decode(file_get_contents(ModMan::getRoot($mod) . "config.json"));
   }
 
+  public static function getConfigAssoc($mod){
+    return json_decode(file_get_contents(ModMan::getRoot($mod) . "config.json"), true);
+  }
+
   public static function setConfig($mod,$config){
     file_put_contents(ModMan::getRoot($mod) . "config.json", json_encode($config));
   }

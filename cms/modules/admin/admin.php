@@ -6,6 +6,7 @@ class Admin{
     Builder::addLoc("admin", $root . "parts/adminpage.phtml");
     AjaxMan::add("admin_login", "Admin::login");
     AjaxMan::add("admin_logout", "Admin::logout");
+    AjaxMan::add("admin_editConfig", "Admin::editConfig");
     AjaxMan::add("admin_setDarkMode", "Admin::setDarkMode");
 
     /*$conf = ModMan::getConfig("admin");
@@ -96,20 +97,34 @@ class Admin{
   public static function editConfig(){
     Admin::checkAccess();
     $mod = $_POST["mod"];
-    $keypath = $_POST["path"];
-    $val = $_POST["val"];
+    $keypath = json_decode($_POST["path"]);
+    $val = json_decode($_POST["val"]);
 
-    $config = ModMan::getConfig($mod);
+    $config = ModMan::getConfigAssoc($mod);
     $adConfig = Admin::getConfig($mod);
 
     $immut = [];
     if(isset($adConfig->immutableKeys)){ $immut = $adConfig->immutableKeys;  }
     if(isset($adConfig->hiddenKeys)){ $immut = array_merge($immut, $adConfig->hiddenKeys);  }
 
-    // TODO: Perform config edit
+    foreach($keypath as $key){
+      if(in_array($key, $immut, true)){
+        Logger::log("Tried editing immutable keys: mod: " . $mod . ", key: " . $key,"WARNING","Admin",false);
+        AjaxMan::ret(["success" => false, "msg" => "Keypath contains immutable or hidden keys"]);
+      }
+    }
 
+    $config = array_replace_recursive($config, Admin::confRecRep($keypath, $val));
     ModMan::setConfig($mod, $config);
     AjaxMan::ret(["success" => true, "msg" => "Config edited"]);
+  }
+
+  private static function confRecRep($keypath, $val, $id = 0){
+    if($id == count($keypath)-1){
+      return array($keypath[$id] => $val);
+    } else {
+      return array($keypath[$id] => Admin::confRecRep($keypath, $val, $id+1));
+    }
   }
 
   public static function addTitle($title){
@@ -179,7 +194,7 @@ class Admin{
   }
 
   public static function checkAccess(){
-    if(Admin::getUser == NULL){
+    if(Admin::getUser() == NULL){
       Logger::log("Forbidden access attempt by: " . $_SERVER["REMOTE_ADDR"],"WARNING","Admin",false);
       AjaxMan::ret("Access Denied. Attempt logged.");
     }
