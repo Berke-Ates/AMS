@@ -21,9 +21,6 @@
     });
 })(jQuery);
 
-
-
-
 $("body").addClass("sb-nav-fixed");
 
 function toggleDarkTheme(){
@@ -48,17 +45,7 @@ function login(us,pw,msg){
   dat.append("password", $("#" + pw).val());
 
   getAjax("admin_login",dat,(r) => {
-    if(!$("#" + msg).is(':empty')){
-      if(r.success){
-        $("#" + msg).addClass("blinkGreen");
-        setTimeout(() => $("#" + msg).removeClass('blinkGreen'), 750);
-      } else {
-        $("#" + msg).addClass("blinkRed");
-        setTimeout(() => $("#" + msg).removeClass('blinkRed'), 750);
-      }
-    }
-
-    $("#" + msg).html(r.msg);
+    showAjaxResponse(r.success, r.msg, "#" + msg);
     if(r.success) setTimeout(() => location.reload(), 1000);
   });
 }
@@ -66,4 +53,17 @@ function login(us,pw,msg){
 function logout(){
   let dat = new FormData();
   getAjax("admin_logout",dat,(r) => {location.reload();});
+}
+
+function showAjaxResponse(succ, msg, elem){
+  if(!$(elem).is(':empty')){
+    if(succ){
+      $(elem).addClass("blinkGreen");
+      setTimeout(() => $(elem).removeClass('blinkGreen'), 750);
+    } else {
+      $(elem).addClass("blinkRed");
+      setTimeout(() => $(elem).removeClass('blinkRed'), 750);
+    }
+  }
+  $(elem).html(msg);
 }

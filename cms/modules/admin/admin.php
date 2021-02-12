@@ -83,14 +83,27 @@ class Admin{
     }
 
     $config->mod = $mod;
-    $linkAdd = '[{"name": "Config", "link": "admin/parts/config.phtml&mod='.$mod.'"}, {"name": "Readme", "link": "admin/parts/readme.phtml&mod='.$mod.'"}]';
-    $config->links = array_merge($config->links, json_decode($linkAdd));
+
+    if($conf->autoConfig){
+      $linkAdd = '[{"name": "Config", "link": "admin/parts/config.phtml&mod='.$mod.'"}]';
+      $config->links = array_merge($config->links, json_decode($linkAdd));
+    }
+
+    if($conf->autoReadme){
+      $linkAdd = '[{"name": "Readme", "link": "admin/parts/readme.phtml&mod='.$mod.'"}]';
+      $config->links = array_merge($config->links, json_decode($linkAdd));
+    }
+
     return $config;
   }
 
   public static function getConfigs(){
     $adConfs = [];
-    foreach(ModMan::getModRoots() as $module){ array_push($adConfs, Admin::getConfig($module)); }
+    foreach(ModMan::getModRoots() as $module){
+      if(ModMan::getConfig("admin")->showDisabledModules || ModMan::getConfig($module)->enabled){
+        array_push($adConfs, Admin::getConfig($module));
+      }
+    }
     return $adConfs;
   }
 

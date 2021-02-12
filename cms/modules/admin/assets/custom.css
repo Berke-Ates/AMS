@@ -43,3 +43,7 @@
 .blinkGreen {
     animation: blinkGreen 0.75s;
 }
+
+.adminCardAlert{
+  float: right;
+}

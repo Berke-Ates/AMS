@@ -4,6 +4,9 @@
   "init": "Admin::init",
   "dependencies": ["logger","builder","ajaxman"],
   "verbose": false,
+  "showDisabledModules": true,
+  "autoConfig": true,
+  "autoReadme":true,
   "users":[
     {
       "ID": 0,
