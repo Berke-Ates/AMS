@@ -7,7 +7,7 @@
   "showDisabledModules": true,
   "autoConfig": true,
   "autoReadme": true,
-  "showImmutableKeys": true,
+  "showImmutableKeys": false,
   "users":[
     {
       "ID": 0,

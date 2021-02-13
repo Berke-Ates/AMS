@@ -13,18 +13,20 @@
   background: #484d51;
   color: #fff;
   border-color: rgba(255,255,255,0.125);
-  box-shadow: 0px 0px 10px 0px #000;
+  box-shadow: 0px 0px 5px 0px #000;
 }
 
 .dark-theme .card-header{
   background: #5e646b;
   color: #fff;
-  border-color: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.125);
 }
 
 .dark-theme .breadcrumb{
   background: #5e646b;
   color: #fff;
+  border-color: rgba(255,255,255,0.125);
+  box-shadow: 0px 0px 5px 0px #000;
 }
 
 .dark-theme .breadcrumb-item.active{
