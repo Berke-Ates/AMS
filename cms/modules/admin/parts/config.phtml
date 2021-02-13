@@ -18,6 +18,8 @@
       $excl = in_array($key, $immut, true);
       foreach($parent as $prt){ $excl = $excl || in_array($prt, $immut, true); }
 
+      if(!ModMan::getConfig("admin")->showImmutableKeys && ($excl || $skip)){ continue; }
+
       $table .= '<tr valign="top">';
       if(!is_numeric($key)){ $table .= '<td class="immutable"><strong>'. $key .':</strong></td>'; }
 

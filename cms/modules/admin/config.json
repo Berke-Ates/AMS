@@ -6,7 +6,8 @@
   "verbose": false,
   "showDisabledModules": true,
   "autoConfig": true,
-  "autoReadme":true,
+  "autoReadme": true,
+  "showImmutableKeys": true,
   "users":[
     {
       "ID": 0,
