@@ -38,6 +38,7 @@ class Admin{
     Builder::addCSS($root . "assets/custom.css");
     Builder::addCSS($root . "assets/dark-theme.css");
     Builder::addCSS($root . "assets/darkswitch.css");
+    Builder::addCSS($root . "assets/editableTable.css");
     Builder::addCSS($root . "assets/snackbar.min.css");
 
     Builder::addJS("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js");

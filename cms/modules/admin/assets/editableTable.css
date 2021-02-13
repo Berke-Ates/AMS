@@ -1,0 +1,23 @@
+.table-editable th:focus,
+.table-editable td:focus{
+  outline: none;
+}
+
+.table-editable th.immutable:focus,
+.table-editable td.immutable:focus{
+  /* fix weird outline */
+}
+
+.table-editable, .table-editable tbody{
+  cursor: default;
+}
+
+.table-editable th,
+.table-editable td{
+  cursor: pointer;
+}
+
+.table-editable th.immutable:hover,
+.table-editable td.immutable:hover{
+  cursor: default;
+}

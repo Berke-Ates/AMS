@@ -10,7 +10,7 @@
 
 <?php
   function jsonToTable($data, $immut, $hide, $parent = []){
-    $table = '<table class="table table-bordered table-editable">';
+    $table = '<table class="table table-bordered table-editable table-rounded">';
     foreach($data as $key => $value) {
       $skip = in_array($key, $hide, true);
       foreach($parent as $prt){ $skip = $skip || in_array($prt, $hide, true); }
