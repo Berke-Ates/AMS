@@ -38,10 +38,12 @@ class Admin{
     Builder::addCSS($root . "assets/custom.css");
     Builder::addCSS($root . "assets/dark-theme.css");
     Builder::addCSS($root . "assets/darkswitch.css");
+    Builder::addCSS($root . "assets/snackbar.min.css");
 
     Builder::addJS("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js");
     Builder::addJS("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js");
     Builder::addJS($root . "assets/editableTable.js");
+    Builder::addJS($root . "assets/snackbar.min.js");
     Builder::addJS($root . "assets/script.js");
 
     if($_SESSION['admin']['darkmode']){ Builder::addBodyClass("dark-theme"); }

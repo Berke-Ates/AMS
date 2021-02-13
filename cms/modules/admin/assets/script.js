@@ -67,3 +67,18 @@ function showAjaxResponse(succ, msg, elem){
   }
   $(elem).html(msg);
 }
+
+
+function showAjaxToast(succ, msg){
+  let col = '#2db94d'
+  if(!succ) col = '#d92638';
+
+  Snackbar.show({
+    text: msg,
+    textColor: '#ffffff',
+    backgroundColor: col,
+    duration: 5000,
+    showAction: false,
+    pos: 'bottom-right'
+  });
+}

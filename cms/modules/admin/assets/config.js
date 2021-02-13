@@ -4,6 +4,6 @@ $('table td[data-editable="true"]').on('change', function(evt, val){
     dat.append("path",JSON.stringify($(this).data().path));
     dat.append("val",val);
 
-    getAjax("admin_editConfig",dat,(r) => showAjaxResponse(r.success, r.msg, "#adminCardAlert" + $(this).data().name));
+    getAjax("admin_editConfig",dat,(r) => showAjaxToast(r.success, r.msg));
 		return true;
 });

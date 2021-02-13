@@ -9,17 +9,9 @@
 }
 
 @keyframes blinkRed {
-    0% {
-      color: #inherit;
-    }
-
-    25% {
-      color: #ff0000;
-    }
-
-    100% {
-      color: inherit;
-    }
+    0% { color: #inherit; }
+    25% { color: #d92638; }
+    100% { color: inherit; }
 }
 
 .blinkRed {
@@ -27,17 +19,9 @@
 }
 
 @keyframes blinkGreen {
-    0% {
-      color: #inherit;
-    }
-
-    25% {
-      color: #00ff00;
-    }
-
-    100% {
-      color: inherit;
-    }
+    0% { color: #inherit; }
+    25% { color: #2db94d; }
+    100% { color: inherit; }
 }
 
 .blinkGreen {
