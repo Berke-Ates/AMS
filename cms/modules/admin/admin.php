@@ -112,8 +112,8 @@ class Admin{
   }
 
   public static function editConfig(){
-    Admin::checkAccess();
     $mod = $_POST["mod"];
+    Admin::checkAccess($mod,1);
     $keypath = json_decode($_POST["path"]);
     $val = json_decode($_POST["val"]);
 
@@ -211,8 +211,8 @@ class Admin{
     }
   }
 
-  public static function checkAccess(){
-    if(Admin::getUser() == NULL){
+  public static function checkAccess($name, $write){
+    if(Admin::getUser() == NULL || !Admin::hasAccessTo($name, $write)){
       Logger::log("Forbidden access attempt by: " . $_SERVER["REMOTE_ADDR"],"WARNING","Admin",false);
       AjaxMan::ret("Access Denied. Attempt logged.");
     }
