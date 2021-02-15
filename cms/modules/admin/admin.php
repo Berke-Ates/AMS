@@ -155,11 +155,12 @@ class Admin{
     Builder::loadPart("admin_breadcrumbs");
   }
 
-  public static function addCard($title,$icon,$content){
+  public static function addCard($title,$icon,$content,$size = ""){
     global $admin_params;
     $admin_params["title"] = $title;
     $admin_params["icon"] = $icon;
     $admin_params["content"] = $content;
+    $admin_params["size"] = $size;
     Builder::loadPart("admin_card");
   }
 

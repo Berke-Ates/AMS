@@ -52,7 +52,7 @@
   if(isset($conf->hiddenKeys)){ $hide = $conf->hiddenKeys;  }
   $path = "cms/modules/" . $_GET['mod'] . "/config.json";
   $content = jsonToTable(json_decode(file_get_contents($path)),$immut,$hide);
-  Admin::addCard($conf->name,"fas fa-wrench",$content);
+  Admin::addCard($conf->name,"fas fa-wrench",$content,"large");
  ?>
 
 <?php

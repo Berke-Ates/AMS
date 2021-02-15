@@ -1,12 +1,25 @@
-<?php global $admin_params; ?>
+<?php global $admin_params;
 
-<div class="card mb-4">
-    <div class="card-header">
-        <i class="<?php echo $admin_params["icon"]; ?> mr-1"></i>
-        <?php echo $admin_params["title"]; ?>
-        <span class="adminCardAlert" id="adminCardAlert<?php echo $admin_params["title"]; ?>"></span>
-    </div>
-    <div class="card-body">
-      <?php echo $admin_params["content"]; ?>
-    </div>
+ $size = "col";
+ if($admin_params["size"] == "small"){
+    $size = "col-xl-3 col-md-6";
+ } else if($admin_params["size"] == "medium"){
+    $size = "col-lg-6";
+ } else if($admin_params["size"] == "large"){
+    $size = "col-12";
+ }
+
+?>
+
+<div class="<?php echo $size; ?>">
+  <div class="card mb-4">
+      <div class="card-header">
+          <i class="<?php echo $admin_params["icon"]; ?> mr-1"></i>
+          <?php echo $admin_params["title"]; ?>
+          <span class="adminCardAlert" id="adminCardAlert<?php echo $admin_params["title"]; ?>"></span>
+      </div>
+      <div class="card-body">
+        <?php echo $admin_params["content"]; ?>
+      </div>
+  </div>
 </div>
