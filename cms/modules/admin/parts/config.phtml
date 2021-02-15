@@ -1,4 +1,5 @@
 <?php
+  if(!Admin::hasAccessTo($_GET['mod'],0)){ Builder::loadPart("admin_denied"); }
   Builder::addJS(ModMan::getRoot("admin") . "assets/config.js");
   Builder::startHead();
   Builder::loadPart("admin_header");

@@ -4,6 +4,8 @@ Builder::clear();
 
 if(Admin::getUser() == NULL){
   Builder::loadPart("admin_login");
+} else if(!Admin::hasAccessTo(explode("/",Admin::getLoc())[0],0)){
+  Builder::loadPart("admin_denied");
 } else {
   include("cms/modules/" . Admin::getLoc());
 }

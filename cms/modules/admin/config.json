@@ -12,7 +12,10 @@
     {
       "ID": 0,
       "username": "admin",
-      "password": "$2y$10$ji.gm9VEHzbQSY5cLpNxYOQnpB5R2f4ydAiq1Bs\/Fp7s\/YdZVoYiC"
+      "email": "default@email.com",
+      "password": "$2y$10$ji.gm9VEHzbQSY5cLpNxYOQnpB5R2f4ydAiq1Bs\/Fp7s\/YdZVoYiC",
+      "useBlacklist": true,
+      "accList": []
     }
   ]
 }

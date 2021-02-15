@@ -31,6 +31,7 @@ class Admin{
     Builder::addPart("admin_footer", $root . "parts/footer.phtml");
     Builder::addPart("admin_navbar", $root . "parts/navbar.phtml");
     Builder::addPart("admin_header", $root . "parts/header.phtml");
+    Builder::addPart("admin_denied", $root . "parts/accessDenied.phtml");
 
     Builder::addCSS("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css");
     Builder::addCSS("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
@@ -216,5 +217,22 @@ class Admin{
       AjaxMan::ret("Access Denied. Attempt logged.");
     }
   }
+
+  public static function hasAccessTo($name, $write){
+    $user = Admin::getUser();
+    if($user == NULL){ return false; }
+    if($user->useBlacklist){
+      foreach($user->accList as $acc){
+        if($acc->name == $name && (!$acc->write || $write)){ return false; }
+      }
+      return true;
+    } else {
+      foreach($user->accList as $acc){
+        if($acc->name == $name && ($acc->write || !$write)){ return true; }
+      }
+      return false;
+    }
+  }
+
 }
  ?>
