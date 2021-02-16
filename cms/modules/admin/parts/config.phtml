@@ -24,7 +24,7 @@
       $table .= '<tr valign="top">';
       if(!is_numeric($key)){ $table .= '<td class="immutable"><strong>'. $key .':</strong></td>'; }
 
-      $table .= "<td data-name='".Admin::getConfig($_GET['mod'])->name."' data-path='".json_encode(array_merge($parent, [$key]))."'";
+      $table .= "<td data-name='".Admin_Config::getConfig($_GET['mod'])->name."' data-path='".json_encode(array_merge($parent, [$key]))."'";
       if(is_numeric($key)){ $table .= 'colspan="2" '; }
       if($excl || $skip){ $table .= 'class="immutable" '; }
       $table .= 'data-editable="'.json_encode(!is_object($value) && !is_array($value)).'" data-mod="'.$_GET['mod'].'">';
@@ -43,7 +43,7 @@
   }
 
   Admin::addTitle("Config");
-  $conf = Admin::getConfig($_GET['mod']);
+  $conf = Admin_Config::getConfig($_GET['mod']);
   $items = [$conf->name, "Config"];
   Admin::addBreadcrumbs($items);
 

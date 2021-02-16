@@ -13,7 +13,7 @@
 
                   <div class="sb-sidenav-menu-heading">Modules</div>
 
-                  <?php $count = 0; foreach(Admin::getConfigs() as $conf){ ?>
+                  <?php $count = 0; foreach(Admin_Config::getConfigs() as $conf){ ?>
                     <?php $currMod = explode("/",Admin::getLoc())[0] == $conf->mod; ?>
                     <?php if(!Admin::hasAccessTo($conf->mod,0)){ continue; }?>
                     <a class="nav-link <?php if($currMod){ echo "active"; } else { echo "collapsed" ;} ?>" href="" data-toggle="collapse" data-target="#collapseLayouts<?php echo $count; ?>" aria-expanded="<?php echo $currMod; ?>" aria-controls="collapseLayouts">
@@ -43,7 +43,7 @@
           </div>
           <div class="sb-sidenav-footer">
               <div class="small">Logged in as:</div>
-              <?php echo Admin::getUser()->username; ?>
+              <?php echo Admin_User::getUser()->username; ?>
           </div>
       </nav>
   </div>

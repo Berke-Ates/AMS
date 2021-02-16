@@ -10,7 +10,7 @@
 
 <?php
   Admin::addTitle("Readme");
-  $items = [Admin::getConfig($_GET['mod'])->name, "Readme"];
+  $items = [Admin_Config::getConfig($_GET['mod'])->name, "Readme"];
   Admin::addBreadcrumbs($items);
 
   $root = ModMan::getRoot("admin");
@@ -18,7 +18,7 @@
   $path = "cms/modules/" . $_GET['mod'] . "/readme.md";
   $content = "No Readme found";
   if(file_exists($path)){ $content =  Parsedown::instance()->text(file_get_contents($path)); }
-  Admin::addCard(Admin::getConfig($_GET['mod'])->name,"fas fa-file-alt",$content,"large");
+  Admin::addCard(Admin_Config::getConfig($_GET['mod'])->name,"fas fa-file-alt",$content,"large");
  ?>
 
 <?php

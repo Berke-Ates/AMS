@@ -1,7 +1,6 @@
 {
   "icon": "fas fa-file-alt",
   "name": "Logger",
-  "immutableKeys":["entry"],
   "links": [
       {
         "name": "Logs",
