@@ -26,6 +26,12 @@ class Admin{
     return $loc;
   }
 
+  public static function isInjectedLoc(){
+    if(Admin::getLoc() == "admin/parts/readme.phtml"){ return true; }
+    if(Admin::getLoc() == "admin/parts/config.phtml"){ return true; }
+    return false;
+  }
+
   public static function addTitle($title){ Admin_UI::addTitle($title); }
   public static function addBreadcrumbs($items){ Admin_UI::addBreadcrumbs($items); }
   public static function addCard($title,$icon,$content,$size = ""){ Admin_UI::addCard($title,$icon,$content,$size); }

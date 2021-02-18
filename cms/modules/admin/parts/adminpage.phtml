@@ -4,11 +4,12 @@ Builder::clear();
 
 if(!Admin_User::isLoggedIn()){
   Builder::loadPart("admin_login");
-} else if(!Admin::hasAccessTo(explode("/",Admin::getLoc())[0],0)){
-  Builder::loadPart("admin_denied");
-} else {
+} else if(Admin::hasAccessTo(explode("/",Admin::getLoc()),0)){
+  include("cms/modules/" . Admin::getLoc());
+} else if(Admin::isInjectedLoc()) {
   include("cms/modules/" . Admin::getLoc());
 }
 
+Builder::loadPart("admin_denied");
 Builder::end();
 ?>

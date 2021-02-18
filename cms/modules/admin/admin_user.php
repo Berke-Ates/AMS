@@ -67,7 +67,7 @@ class Admin_User{
   public static function checkAccess($name, $write){
     if(Admin_User::getUser() == NULL || !Admin_User::hasAccessTo($name, $write)){
       Logger::log("Forbidden access attempt by: " . $_SERVER["REMOTE_ADDR"],"WARNING","Admin",false);
-      AjaxMan::ret("Access Denied. Attempt logged.");
+      AjaxMan::ret(["success" => false, "msg" => "Access Denied. Attempt logged"]);
     }
   }
 
