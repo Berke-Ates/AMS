@@ -1,6 +1,8 @@
 <?php
 class Admin{
 
+  private static $injectArr = [];
+
   public static function init(){
     $root = ModMan::getRoot("admin");
     Builder::addLoc("admin", $root . "parts/adminpage.phtml");
@@ -17,6 +19,9 @@ class Admin{
   public static function prep(){
     Admin_User::prep();
     Admin_UI::prep();
+
+    Admin::addInjection("admin/parts/config.phtml");
+    Admin::addInjection("admin/parts/readme.phtml");
   }
 
   public static function getLoc(){
@@ -27,10 +32,11 @@ class Admin{
   }
 
   public static function isInjectedLoc(){
-    if(Admin::getLoc() == "admin/parts/readme.phtml"){ return true; }
-    if(Admin::getLoc() == "admin/parts/config.phtml"){ return true; }
+    foreach(Admin::$injectArr as $in){ if(Admin::getLoc() == $in){ return true; } }
     return false;
   }
+
+  private static function addInjection($path){ array_push(Admin::$injectArr, $path); }
 
   public static function addTitle($title){ Admin_UI::addTitle($title); }
   public static function addBreadcrumbs($items){ Admin_UI::addBreadcrumbs($items); }
