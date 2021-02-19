@@ -80,8 +80,14 @@ class Admin_Config{
       }
     }
 
-    $config = array_replace_recursive($config, Admin_Config::confRecRep($keypath, $val));
-    ModMan::setConfig($mod, $config);
+    $repConf = array_replace_recursive($config, Admin_Config::confRecRep($keypath, $val));
+
+    if(count($repConf,1) != count($config,1)){
+      Logger::log("Tried adding key: mod: " . $mod . ", key: " . $keypath[count($keypath)-1],"WARNING","Admin",false);
+      AjaxMan::ret(["success" => false, "msg" => "Adding keys prohibited"]);
+    }
+
+    ModMan::setConfig($mod, $repConf);
     AjaxMan::ret(["success" => true, "msg" => "Config edited"]);
   }
 
