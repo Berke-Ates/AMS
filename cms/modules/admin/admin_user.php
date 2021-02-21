@@ -9,6 +9,7 @@ class Admin_User{
   public static function prep(){
     $root = ModMan::getRoot("admin");
     Builder::addPart("admin_login", $root . "parts/login.phtml");
+    Builder::addPart("admin_pwReset", $root . "parts/pwReset.phtml");
     Builder::addPart("admin_denied", $root . "parts/accessDenied.phtml");
   }
 

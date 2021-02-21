@@ -1,0 +1,53 @@
+<?php
+  Builder::startHead();
+  Builder::loadPart("admin_header");
+  Builder::loadCSS(false);
+  Builder::loadFonts(false);
+  Builder::startBody();
+  Builder::loadPart("admin_navbar");
+?>
+
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center mt-5 mb-5">
+                    <div class="col-lg-5 mt-3 mb-3">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header">
+                              <h3 class="text-center font-weight-light my-3">Password Recovery</h3>
+                              <h6 class="text-center font-weight-light" id="pwResetMessage"></h6>
+                            </div>
+                            <div class="card-body">
+                              <div class="small mb-3 text-muted">Enter your email address and we will send you a link to reset your password.</div>
+                              <form>
+                                  <div class="form-group">
+                                      <label class="small mb-1" for="pwResetEmailAddress">Email</label>
+                                      <input class="form-control py-4" id="pwResetEmailAddress" type="email" placeholder="Enter email address" />
+                                  </div>
+                                  <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                      <a class="small" href="?loc=admin">Return to login</a>
+                                      <a class="btn btn-primary" id="pwResetButton">Reset Password</a>
+                                  </div>
+                              </form>
+                            </div>
+                            <div class="card-footer text-center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="layoutAuthentication_footer">
+        <?php Builder::loadPart("admin_footer"); ?>
+    </div>
+</div>
+
+<?php Builder::loadJS(false); ?>
+
+<script>
+  $('input').keypress((e) => { if(e.keyCode==13) $('#pwResetButton').click(); } );
+</script>
+
+<?php Builder::end(); ?>

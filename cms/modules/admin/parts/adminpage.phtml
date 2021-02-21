@@ -2,7 +2,9 @@
 Admin::prep();
 Builder::clear();
 
-if(!Admin_User::isLoggedIn()){
+if(Admin::getLoc() == "passwordReset"){
+  Builder::loadPart("admin_pwReset");
+} else if(!Admin_User::isLoggedIn()){
   Builder::loadPart("admin_login");
 } else if(Admin::hasAccessTo(explode("/",Admin::getLoc()),0)){
   include("cms/modules/" . Admin::getLoc());
