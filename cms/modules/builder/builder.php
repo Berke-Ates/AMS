@@ -35,6 +35,16 @@
       Builder::$partArr[$name] = $path;
     }
 
+    public static function setParam($key, $val){
+      global $builder_params;
+      $builder_params[$key] = $val;
+    }
+
+    public static function getParam($key){
+      global $builder_params;
+      return $builder_params[$key];
+    }
+
     public static function loadPart($part){
       $config = ModMan::getConfig("builder");
 

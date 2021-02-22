@@ -37,23 +37,20 @@ class Admin_UI{
   }
 
   public static function addTitle($title){
-    global $admin_params;
-    $admin_params["title"] = $title;
+    Builder::setParam("title", $title);
     Builder::loadPart("admin_title");
   }
 
   public static function addBreadcrumbs($items){
-    global $admin_params;
-    $admin_params["items"] = $items;
+    Builder::setParam("items", $items);
     Builder::loadPart("admin_breadcrumbs");
   }
 
   public static function addCard($title,$icon,$content,$size = ""){
-    global $admin_params;
-    $admin_params["title"] = $title;
-    $admin_params["icon"] = $icon;
-    $admin_params["content"] = $content;
-    $admin_params["size"] = $size;
+    Builder::setParam("title", $title);
+    Builder::setParam("icon", $icon);
+    Builder::setParam("content", $content);
+    Builder::setParam("size", $size);
     Builder::loadPart("admin_card");
   }
 

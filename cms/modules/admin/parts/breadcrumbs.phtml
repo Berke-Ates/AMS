@@ -1,12 +1,11 @@
-<?php global $admin_params; ?>
-
 <div class="col-12">
   <ol class="breadcrumb mb-4">
       <?php
-        for($i = 0; $i < count($admin_params["items"])-1; $i++) {
-          echo '<li class="breadcrumb-item">'.$admin_params["items"][$i].'</li>';
+        $arr = Builder::getParam("items");
+        for($i = 0; $i < count($arr)-1; $i++) {
+          echo '<li class="breadcrumb-item">'.$arr[$i].'</li>';
         }
       ?>
-      <li class="breadcrumb-item active"><?php echo $admin_params["items"][count($admin_params["items"])-1]; ?></li>
+      <li class="breadcrumb-item active"><?php echo $arr[count($arr)-1]; ?></li>
   </ol>
 </div>

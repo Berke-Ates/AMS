@@ -1,11 +1,10 @@
-<?php global $admin_params;
-
+<?php
  $size = "col";
- if($admin_params["size"] == "small"){
+ if(Builder::getParam("size") == "small"){
     $size = "col-xl-3 col-md-6";
- } else if($admin_params["size"] == "medium"){
+ } else if(Builder::getParam("size") == "medium"){
     $size = "col-lg-6";
- } else if($admin_params["size"] == "large"){
+ } else if(Builder::getParam("size") == "large"){
     $size = "col-12";
  }
 
@@ -14,12 +13,12 @@
 <div class="<?php echo $size; ?>">
   <div class="card mb-4">
       <div class="card-header">
-          <i class="<?php echo $admin_params["icon"]; ?> mr-1"></i>
-          <?php echo $admin_params["title"]; ?>
-          <span class="adminCardAlert" id="adminCardAlert<?php echo $admin_params["title"]; ?>"></span>
+          <i class="<?php echo Builder::getParam("icon"); ?> mr-1"></i>
+          <?php echo Builder::getParam("title"); ?>
+          <span class="adminCardAlert" id="adminCardAlert<?php echo Builder::getParam("title"); ?>"></span>
       </div>
       <div class="card-body">
-        <?php echo $admin_params["content"]; ?>
+        <?php echo Builder::getParam("content"); ?>
       </div>
   </div>
 </div>
