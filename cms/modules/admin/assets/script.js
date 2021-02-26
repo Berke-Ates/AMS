@@ -55,6 +55,10 @@ function logout(){
   getAjax("admin_logout",dat,(r) => {location.reload();});
 }
 
+function resetPW(us){
+
+}
+
 function showAjaxResponse(succ, msg, elem){
   if(!$(elem).is(':empty')){
     if(succ){

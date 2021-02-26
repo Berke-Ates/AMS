@@ -12,7 +12,7 @@
     {
       "ID": 0,
       "username": "admin",
-      "email": "default@email.com",
+      "email": "berke@ates.ch",
       "password": "$2y$10$ji.gm9VEHzbQSY5cLpNxYOQnpB5R2f4ydAiq1Bs\/Fp7s\/YdZVoYiC",
       "useBlacklist": true,
       "accList": [{"name":"logger","write":true}]
