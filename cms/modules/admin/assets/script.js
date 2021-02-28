@@ -55,9 +55,27 @@ function logout(){
   getAjax("admin_logout",dat,(r) => {location.reload();});
 }
 
-function resetPW(us){
+function resetPW(us,msg){
+  let dat = new FormData();
+  dat.append("username", $("#" + us).val());
 
+  getAjax("admin_resetPW",dat,(r) => {
+    showAjaxResponse(r.success, r.msg, "#" + msg);
+  });
 }
+
+function changePW(us,pw,key,msg){
+  let dat = new FormData();
+  dat.append("username", $("#" + us).val());
+  dat.append("pw", $("#" + pw).val());
+  dat.append("key", $("#" + key).val());
+
+  getAjax("admin_changePW",dat,(r) => {
+    showAjaxResponse(r.success, r.msg, "#" + msg);
+    if(r.success) setTimeout(() => window.location.href = "?loc=admin", 1000);
+  });
+}
+
 
 function showAjaxResponse(succ, msg, elem){
   if(!$(elem).is(':empty')){

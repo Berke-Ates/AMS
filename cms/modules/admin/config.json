@@ -2,6 +2,8 @@
   "enabled": true,
   "entry": "admin.php",
   "init": "Admin::init",
+  "root": "/ams",
+  "domain": "ates.ch",
   "dependencies": ["logger","builder","ajaxman"],
   "verbose": false,
   "showDisabledModules": true,
@@ -14,6 +16,7 @@
       "username": "admin",
       "email": "berke@ates.ch",
       "password": "$2y$10$ji.gm9VEHzbQSY5cLpNxYOQnpB5R2f4ydAiq1Bs\/Fp7s\/YdZVoYiC",
+      "pwRec": "",
       "useBlacklist": true,
       "accList": [{"name":"logger","write":true}]
     }

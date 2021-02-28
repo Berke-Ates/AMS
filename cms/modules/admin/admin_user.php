@@ -4,12 +4,15 @@ class Admin_User{
   public static function init(){
     AjaxMan::add("admin_login", "Admin_User::login");
     AjaxMan::add("admin_logout", "Admin_User::logout");
+    AjaxMan::add("admin_resetPW", "Admin_User::resetPW");
+    AjaxMan::add("admin_changePW", "Admin_User::changePW");
   }
 
   public static function prep(){
     $root = ModMan::getRoot("admin");
     Builder::addPart("admin_login", $root . "parts/login.phtml");
     Builder::addPart("admin_pwReset", $root . "parts/pwReset.phtml");
+    Builder::addPart("admin_pwChange", $root . "parts/pwChange.phtml");
     Builder::addPart("admin_denied", $root . "parts/accessDenied.phtml");
   }
 
@@ -46,12 +49,65 @@ class Admin_User{
     }
 
     Logger::log("Unsuccessful login attempt: Username: " . $UN,"WARNING","Admin",false);
-    AjaxMan::ret(["success" => false, "msg" => "User not found"]);
+    AjaxMan::ret(["success" => false, "msg" => "Username does not exist"]);
   }
 
   public static function logout(){
     unset($_SESSION['admin']['userID']);
     AjaxMan::ret("Logged out");
+  }
+
+  public static function resetPW(){
+    $UN = $_POST['username'];
+    $conf = ModMan::getConfig("admin");
+
+    foreach($conf->users as $user){
+      if($user->username == $UN){
+        $key = password_hash(time(), PASSWORD_DEFAULT);
+        $user->pwRec = $key;
+        ModMan::setConfig("admin", $conf);
+
+        $link = "https://" . $conf->domain . $conf->root . "?loc=admin&admin_loc=passwordChange&US=" . $user->username . "&key=" . $key;
+        $msg = '<html><head></head><body>Click on this link to set a new password: <a href="'.$link.'">Change password</a></body></html>';
+        $header =
+          'MIME-Version: 1.0' . "\r\n" .
+          'Content-type: text/html; charset=utf-8' . "\r\n" .
+          'From: AMS <AMS@' . $conf->domain . '>'
+        ;
+
+        $mailSucc = mail($user->email,"Password recovery",$msg,$header);
+        if(!$mailSucc){
+          $errorMessage = error_get_last()['message'];
+          Logger::log("Email delivery failed: " . $errorMessage,"ERROR","Admin",false);
+          AjaxMan::ret(["success" => false, "msg" => "Email delivery failed"]);
+        }
+
+        AjaxMan::ret(["success" => true, "msg" => "Email sent"]);
+      }
+    }
+
+    AjaxMan::ret(["success" => false, "msg" => "Username does not exist"]);
+  }
+
+  public static function changePW(){
+    $UN = $_POST['username'];
+    $PW = $_POST['pw'];
+    $key = $_POST['key'];
+    $conf = ModMan::getConfig("admin");
+
+    foreach($conf->users as $user){
+      if($user->username == $UN){
+        if($user->pwRec != "" && $user->pwRec == $key){
+          $user->password = password_hash($PW, PASSWORD_DEFAULT);
+          $user->pwRec = "";
+          ModMan::setConfig("admin", $conf);
+          AjaxMan::ret(["success" => true, "msg" => "Password changed"]);
+        }
+        AjaxMan::ret(["success" => false, "msg" => "Key mismatch"]);
+      }
+    }
+
+    AjaxMan::ret(["success" => false, "msg" => "Username does not exist"]);
   }
 
   public static function getUser(){
