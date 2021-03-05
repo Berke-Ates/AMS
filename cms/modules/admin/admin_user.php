@@ -75,7 +75,7 @@ class Admin_User{
           'From: AMS <AMS@' . $conf->domain . '>'
         ;
 
-        $mailSucc = mail($user->email,"Password recovery",$msg,$header);
+        $mailSucc = mail($user->email,"Password recovery",$msg,$header,'-f AMS@' . $conf->domain);
         if(!$mailSucc){
           $errorMessage = error_get_last()['message'];
           Logger::log("Email delivery failed: " . $errorMessage,"ERROR","Admin",false);
