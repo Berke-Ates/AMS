@@ -1,7 +1,10 @@
 {
   "enabled": true,
   "entry": "ajaxman.php",
-  "dependencies": ["builder", "logger"],
+  "dependencies": [
+    "builder",
+    "logger"
+  ],
   "init": "AjaxMan::init",
   "verbose": false
 }

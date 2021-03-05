@@ -1,7 +1,20 @@
 {
   "icon": "fas fa-user-shield",
   "name": "Admin",
-  "immutableKeys":["enabled","users","domain","root"],
-  "hiddenKeys":["password","pwRec"],
-  "links": []
+  "immutableKeys": [
+    "enabled",
+    "users",
+    "domain",
+    "root"
+  ],
+  "hiddenKeys": [
+    "password",
+    "pwRec"
+  ],
+  "links": [
+    {
+      "name": "Users",
+      "link": "admin/parts/users.phtml"
+    }
+  ]
 }

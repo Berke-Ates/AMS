@@ -1,7 +1,9 @@
 {
   "enabled": true,
   "entry": "builder.php",
-  "dependencies": ["logger"],
+  "dependencies": [
+    "logger"
+  ],
   "init": "Builder::init",
   "verbose": false,
   "homepage": "home",

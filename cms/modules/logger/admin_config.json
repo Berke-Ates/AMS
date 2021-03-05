@@ -2,10 +2,9 @@
   "icon": "fas fa-file-alt",
   "name": "Logger",
   "links": [
-      {
-        "name": "Logs",
-        "link": "logger/log_admin.phtml"
-      }
+    {
+      "name": "Logs",
+      "link": "logger/log_admin.phtml"
+    }
   ]
-
 }
