@@ -35,3 +35,7 @@
 .btn .fas{
   margin-right: 0.5rem;
 }
+
+.table-min th{
+  border-top: none;
+}
