@@ -31,3 +31,7 @@
 .adminCardAlert{
   float: right;
 }
+
+.btn .fas{
+  margin-right: 0.5rem;
+}
