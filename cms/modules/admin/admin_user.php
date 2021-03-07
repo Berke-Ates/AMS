@@ -6,6 +6,7 @@ class Admin_User{
     AjaxMan::add("admin_logout", "Admin_User::logout");
     AjaxMan::add("admin_resetPW", "Admin_User::resetPW");
     AjaxMan::add("admin_changePW", "Admin_User::changePW");
+    AjaxMan::add("admin_delUser", "Admin_User::delUser");
   }
 
   public static function prep(){
@@ -14,6 +15,8 @@ class Admin_User{
     Builder::addPart("admin_pwReset", $root . "parts/pwReset.phtml");
     Builder::addPart("admin_pwChange", $root . "parts/pwChange.phtml");
     Builder::addPart("admin_denied", $root . "parts/accessDenied.phtml");
+
+    Builder::addJS($root . "assets/user.js");
   }
 
   public static function addDefaultAdmin(){
@@ -114,9 +117,25 @@ class Admin_User{
     if(!isset($_SESSION['admin']['userID'])){ return NULL; }
     $users = ModMan::getConfig("admin")->users;
     foreach($users as $user){
-      if($user->id != $_SESSION['admin']['userID']){ continue; }
+      if($user->ID != $_SESSION['admin']['userID']){ continue; }
       return $user;
     }
+  }
+
+  public static function delUser(){
+    Admin_User::checkAccess("admin",1);
+    $id = $_POST['id'];
+    $conf = ModMan::getConfig("admin");
+
+    for ($i = 0; $i < count($conf->users); $i++) {
+      if($conf->users[$i]->ID == $id){
+        unset($conf->users[$i]);
+        ModMan::setConfig("admin", $conf);
+        AjaxMan::ret(["success" => true, "msg" => "User deleted"]);
+      }
+    }
+    
+    AjaxMan::ret(["success" => false, "msg" => "User does not exist"]);
   }
 
   public static function isLoggedIn(){ return Admin_User::getUser() != NULL; }

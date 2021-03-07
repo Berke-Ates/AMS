@@ -1,0 +1,56 @@
+<?php
+  Builder::startHead();
+  Builder::loadPart("admin_header");
+  Builder::loadCSS(false);
+  Builder::loadFonts(false);
+  Builder::startBody();
+  Builder::loadPart("admin_start");
+?>
+
+<?php
+  function userToTable($data){
+    $table = '<table class="table table-min">
+      <colgroup>
+       <col span="1" style="width: 10%;">
+       <col span="1" style="width: 30%;">
+       <col span="1" style="width: 30%;">
+       <col span="1" style="width: 15%;">
+       <col span="1" style="width: 15%;">
+      </colgroup>
+
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
+      </tr>';
+
+    foreach($data as $user) {
+      $table .= '<tr valign="top">';
+      $table .= '<td>'. $user->ID .'</td>';
+      $table .= '<td>'. $user->username  .'</td>';
+      $table .= '<td>'. $user->email .'</td>';
+      $table .= '<td><a class="btn btn-primary btn-sm btn-block"><i class="fas fa-pencil-alt"></i> Edit</a></td>';
+      $table .= '<td><a class="btn btn-danger btn-sm btn-block" onclick="delUser('.$user->ID.')"><i class="fas fa-trash-alt"></i> Delete</a></td>';
+      $table .= '</td></tr>';
+    }
+
+    $table .= '</table>';
+    return $table;
+  }
+
+  Admin::addTitle("Users");
+  $items = ["Admin", "Users"];
+  Admin::addBreadcrumbs($items);
+
+  $data = ModMan::getConfig("admin")->users;
+  $content = userToTable($data);
+  Admin::addCard("Edit Users","fas fa-users",$content,"large");
+ ?>
+
+<?php
+  Builder::loadPart("admin_end");
+  Builder::loadJS(false);
+  Builder::end();
+?>
