@@ -50,7 +50,7 @@
 
       if(isset(Builder::$partArr[$part])){
         if(file_exists(Builder::$partArr[$part])){
-          Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
+          //Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
           include(Builder::$partArr[$part]);
           return;
         }
@@ -59,13 +59,13 @@
       }
 
       if(file_exists("build/parts/" . $part . ".phtml")){
-        Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
+        //Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
         include("build/parts/" . $part . ".phtml");
         return;
       }
 
       if(file_exists("build/parts/" . $part . ".html")){
-        Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
+        //Logger::log("Loaded Part: " . $part, "INFO", "Builder", $config->verbose);
         include("build/parts/" . $part . ".html");
         return;
       }
@@ -78,19 +78,19 @@
       $config = ModMan::getConfig("builder");
 
       if( file_exists($loc) ){
-        Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
+        //Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
         include($loc);
         return;
       }
 
       if( file_exists("build/sites/". $loc . "/" . $loc .".phtml") ){
-        Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
+        //Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
         include("build/sites/" . $loc . "/" . $loc . ".phtml");
         return;
       }
 
       if( file_exists("build/sites/". $loc . "/" . $loc .".html") ){
-        Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
+        //Logger::log("Loaded Site: " . $loc, "INFO", "Builder", $config->verbose);
         include("build/sites/". $loc . "/" . $loc . ".html");
         return;
       }
