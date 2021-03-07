@@ -13,7 +13,7 @@ class Logger{
     if(!$config->savelog){ return; }
 
     $log = fopen($root . "logs.txt", "a");
-    fwrite($log, "\n". $text);
+    fwrite($log, "\r\n". $text);
     fclose($log);
   }
 }
