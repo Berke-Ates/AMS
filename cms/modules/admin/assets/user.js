@@ -38,5 +38,8 @@ function changePW(us,pw,key,msg){
 function delUser(id){
   let dat = new FormData();
   dat.append("id", id);
-  getAjax("admin_delUser",dat,(r) => showAjaxToast(r.success, r.msg));
+  getAjax("admin_delUser",dat,(r) => {
+    showAjaxToast(r.success, r.msg);
+    if(r.success) setTimeout(() => $("#userRow" + id).remove(), 750);
+  });
 }

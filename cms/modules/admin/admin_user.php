@@ -130,11 +130,12 @@ class Admin_User{
     for ($i = 0; $i < count($conf->users); $i++) {
       if($conf->users[$i]->ID == $id){
         unset($conf->users[$i]);
+        $conf->users = array_values($conf->users);
         ModMan::setConfig("admin", $conf);
         AjaxMan::ret(["success" => true, "msg" => "User deleted"]);
       }
     }
-    
+
     AjaxMan::ret(["success" => false, "msg" => "User does not exist"]);
   }
 

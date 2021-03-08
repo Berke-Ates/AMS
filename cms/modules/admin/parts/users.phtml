@@ -27,7 +27,7 @@
       </tr>';
 
     foreach($data as $user) {
-      $table .= '<tr valign="top">';
+      $table .= '<tr valign="top" id="userRow' . $user->ID . '">';
       $table .= '<td>'. $user->ID .'</td>';
       $table .= '<td>'. $user->username  .'</td>';
       $table .= '<td>'. $user->email .'</td>';
