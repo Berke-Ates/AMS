@@ -18,7 +18,7 @@
   $path = ModMan::getRoot($_GET['mod']) . "/readme.md";
   $content = "No Readme found";
   if(file_exists($path)){ $content =  Parsedown::instance()->text(file_get_contents($path)); }
-  Admin::addCard(Admin_Config::getConfig($_GET['mod'])->name,"fas fa-file-alt",$content,"large");
+  Admin::addCard(Admin_Config::getConfig($_GET['mod'])->name,"fas fa-file-alt",$content,"extralarge");
  ?>
 
 <?php

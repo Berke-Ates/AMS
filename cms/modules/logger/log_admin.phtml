@@ -16,7 +16,7 @@
   $path = $root . "/logs.txt";
   $content = "No logs found";
   if(file_exists($path)){ $content =  nl2br(file_get_contents($path)); }
-  Admin::addCard("Logs","fas fa-file-alt",$content,"large");
+  Admin::addCard("Logs","fas fa-file-alt",$content,"extralarge");
  ?>
 
 <?php
