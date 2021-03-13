@@ -22,6 +22,9 @@
 })(jQuery);
 
 $("body").addClass("sb-nav-fixed");
+$('[data-entertrigger]').each(function() {
+  $(this).keypress((e) => { if(e.keyCode==13) $('#' + $(this).data("entertrigger")).click(); } );
+});
 
 function toggleDarkTheme(){
   $('body').toggleClass('dark-theme');

@@ -22,7 +22,7 @@
                                 <form>
                                     <div class="form-group">
                                         <label class="small mb-1" for="pwChangePW">New password</label>
-                                        <input class="form-control py-4" id="pwChangePW" type="password" placeholder="Enter new password" />
+                                        <input class="form-control py-4" id="pwChangePW" type="password" placeholder="Enter new password" data-entertrigger="pwChangeButton"/>
                                         <input id="pwChangeKey" type="hidden" value="<?php echo $_GET['key'] ?>"/>
                                         <input id="pwChangeUsername" type="hidden" value="<?php echo $_GET['US'] ?>"/>
                                     </div>
@@ -50,10 +50,7 @@
     </div>
 </div>
 
-<?php Builder::loadJS(false); ?>
-
-<script>
-  $('input').keypress((e) => { if(e.keyCode==13) $('#pwChangeButton').click(); } );
-</script>
-
-<?php Builder::end(); ?>
+<?php
+  Builder::loadJS(false);
+  Builder::end();
+?>

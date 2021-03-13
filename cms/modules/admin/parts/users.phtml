@@ -20,19 +20,19 @@ $content = '
 <form>
   <div class="form-group">
         <label class="small mb-1" for="addUserUsername">Username</label>
-        <input class="form-control py-4" id="addUserUsername" type="text" placeholder="Enter username" />
+        <input class="form-control py-4" id="addUserUsername" type="text" placeholder="Enter username" data-entertrigger="userAddButton"/>
     </div>
     <div class="form-group">
         <label class="small mb-1" for="addUserPassword">Password</label>
-        <input class="form-control py-4" id="addUserPassword" type="password" placeholder="Enter password" />
+        <input class="form-control py-4" id="addUserPassword" type="password" placeholder="Enter password" data-entertrigger="userAddButton" />
     </div>
     <div class="form-group">
         <label class="small mb-1" for="addUserEmail">Email</label>
-        <input class="form-control py-4" id="addUserEmail" type="email" placeholder="Enter email" />
+        <input class="form-control py-4" id="addUserEmail" type="email" placeholder="Enter email" data-entertrigger="userAddButton"/>
     </div>
     <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
         <a class="small"></a>
-        <a class="btn btn-primary" id="loginButton" onclick="addUser(\'addUserUsername\',\'addUserPassword\', \'addUserEmail\');">Add User</a>
+        <a class="btn btn-primary" id="userAddButton" onclick="addUser(\'addUserUsername\',\'addUserPassword\', \'addUserEmail\');">Add User</a>
     </div>
 </form>';
 Admin::addCard("Add Users","fas fa-user-plus",$content,"small");

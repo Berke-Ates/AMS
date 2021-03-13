@@ -22,7 +22,7 @@
                                 <form>
                                     <div class="form-group">
                                         <label class="small mb-1" for="pwResetUsername">Username</label>
-                                        <input class="form-control py-4" id="pwResetUsername" type="text" placeholder="Enter username" />
+                                        <input class="form-control py-4" id="pwResetUsername" type="text" placeholder="Enter username" data-entertrigger="pwResetButton"/>
                                     </div>
                                     <!-- for some reason removing this form group causes enter to direct to homepage -->
                                     <div class="form-group" style="display:none;">
@@ -48,10 +48,7 @@
     </div>
 </div>
 
-<?php Builder::loadJS(false); ?>
-
-<script>
-  $('input').keypress((e) => { if(e.keyCode==13) $('#pwResetButton').click(); } );
-</script>
-
-<?php Builder::end(); ?>
+<?php
+  Builder::loadJS(false);
+  Builder::end();
+?>
