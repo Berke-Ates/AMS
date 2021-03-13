@@ -96,8 +96,11 @@ class Admin_User{
   public static function changePW(){
     $UN = $_POST['username'];
     $PW = $_POST['pw'];
+    $PW2 = $_POST['pw2'];
     $key = $_POST['key'];
     $conf = ModMan::getConfig("admin");
+
+    if($PW != $PW2){ AjaxMan::ret(["success" => false, "msg" => "Passwords don't match"]); }
 
     foreach($conf->users as $user){
       if($user->username == $UN){

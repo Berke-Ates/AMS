@@ -23,10 +23,11 @@ function resetPW(us,msg){
   });
 }
 
-function changePW(us,pw,key,msg){
+function changePW(us,pw,pw2,key,msg){
   let dat = new FormData();
   dat.append("username", $("#" + us).val());
   dat.append("pw", $("#" + pw).val());
+  dat.append("pw2", $("#" + pw2).val());
   dat.append("key", $("#" + key).val());
 
   getAjax("admin_changePW",dat,(r) => {
@@ -52,7 +53,7 @@ function addUser(us, pw, email){
   getAjax("admin_addUser",dat,(r) => {
     showAjaxToast(r.success, r.msg);
     if(r.success) setTimeout(() => {
-      addUserToTable(r.id,$("#" + us).val(),$("#" + email).val()); 
+      addUserToTable(r.id,$("#" + us).val(),$("#" + email).val());
       $("#" + us).val("");
       $("#" + pw).val("")
       $("#" + email).val("")
