@@ -43,3 +43,30 @@ function delUser(id){
     if(r.success) setTimeout(() => $("#userRow" + id).remove(), 750);
   });
 }
+
+function addUser(us, pw, email){
+  let dat = new FormData();
+  dat.append("username", $("#" + us).val());
+  dat.append("pw", $("#" + pw).val());
+  dat.append("email", $("#" + email).val());
+  getAjax("admin_addUser",dat,(r) => {
+    showAjaxToast(r.success, r.msg);
+    if(r.success) setTimeout(() => {
+      addUserToTable(r.id,$("#" + us).val(),$("#" + email).val()); 
+      $("#" + us).val("");
+      $("#" + pw).val("")
+      $("#" + email).val("")
+    }, 750);
+  });
+}
+
+function addUserToTable(id,username,email){
+  content = '<tr valign="top" id="userRow' + id + '">';
+  content += '<td>' + id + '</td>';
+  content += '<td>' + username + '</td>';
+  content += '<td>' + email + '</td>';
+  content += '<td><a class="btn btn-primary btn-sm btn-block"><i class="fas fa-pencil-alt"></i> Edit</a></td>';
+  content += '<td><a class="btn btn-danger btn-sm btn-block" onclick="delUser(' + id + ')"><i class="fas fa-trash-alt"></i> Delete</a></td>';
+  content += '</td></tr>';
+  $("#userTable").append(content);
+}

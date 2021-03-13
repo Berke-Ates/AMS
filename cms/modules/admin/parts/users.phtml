@@ -8,8 +8,40 @@
 ?>
 
 <?php
+  Admin::addTitle("Users");
+  $items = ["Admin", "Users"];
+  Admin::addBreadcrumbs($items);
+ ?>
+
+<?php
+
+
+$content = '
+<form>
+  <div class="form-group">
+        <label class="small mb-1" for="addUserUsername">Username</label>
+        <input class="form-control py-4" id="addUserUsername" type="text" placeholder="Enter username" />
+    </div>
+    <div class="form-group">
+        <label class="small mb-1" for="addUserPassword">Password</label>
+        <input class="form-control py-4" id="addUserPassword" type="password" placeholder="Enter password" />
+    </div>
+    <div class="form-group">
+        <label class="small mb-1" for="addUserEmail">Email</label>
+        <input class="form-control py-4" id="addUserEmail" type="email" placeholder="Enter email" />
+    </div>
+    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+        <a class="small"></a>
+        <a class="btn btn-primary" id="loginButton" onclick="addUser(\'addUserUsername\',\'addUserPassword\', \'addUserEmail\');">Add User</a>
+    </div>
+</form>';
+Admin::addCard("Add Users","fas fa-user-plus",$content,"small");
+
+ ?>
+
+<?php
   function userToTable($data){
-    $table = '<table class="table table-min">
+    $table = '<table class="table table-min" id="userTable">
       <colgroup>
        <col span="1" style="width: 10%;">
        <col span="1" style="width: 30%;">
@@ -40,13 +72,9 @@
     return $table;
   }
 
-  Admin::addTitle("Users");
-  $items = ["Admin", "Users"];
-  Admin::addBreadcrumbs($items);
-
   $data = ModMan::getConfig("admin")->users;
   $content = userToTable($data);
-  Admin::addCard("Edit Users","fas fa-users",$content,"large");
+  Admin::addCard("Edit Users","fas fa-users",$content,"medium");
  ?>
 
 <?php
