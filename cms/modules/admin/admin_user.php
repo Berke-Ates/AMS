@@ -8,6 +8,7 @@ class Admin_User{
     AjaxMan::add("admin_changePW", "Admin_User::changePW");
     AjaxMan::add("admin_delUser", "Admin_User::delUser");
     AjaxMan::add("admin_addUser", "Admin_User::addUser");
+    AjaxMan::add("admin_editUser", "Admin_User::editUser");
   }
 
   public static function prep(){
@@ -166,6 +167,33 @@ class Admin_User{
     AjaxMan::ret(["success" => true, "msg" => "User added", "id" => $maxID]);
   }
 
+  public static function editUser(){
+    Admin_User::checkAccess("admin",1);
+    $ID = $_POST['id'];
+    $UN = $_POST['username'];
+    $PW = password_hash($_POST['pw'], PASSWORD_DEFAULT);
+    $email = $_POST['email'];
+    $conf = ModMan::getConfig("admin");
+
+    foreach($conf->users as $user){
+      if($user->ID == $ID || $user->username != $UN){ continue; }
+      AjaxMan::ret(["success" => false, "msg" => "Username already exists"]);
+    }
+
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){ AjaxMan::ret(["success" => false, "msg" => "Please enter a valid email address"]); }
+
+    foreach($conf->users as $user){
+      if($user->ID == $ID){
+        $user->username = $UN;
+        $user->password = $PW;
+        $user->email = $email;
+        ModMan::setConfig("admin",$conf);
+        AjaxMan::ret(["success" => true, "msg" => "User edited"]);
+      }
+    }
+
+    AjaxMan::ret(["success" => false, "msg" => "User does not exist"]);
+  }
 
   public static function isLoggedIn(){ return Admin_User::getUser() != NULL; }
 

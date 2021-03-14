@@ -63,7 +63,37 @@ Admin::addCard("Add Users","fas fa-user-plus",$content,"small");
       $table .= '<td>'. $user->ID .'</td>';
       $table .= '<td>'. $user->username  .'</td>';
       $table .= '<td>'. $user->email .'</td>';
-      $table .= '<td><a class="btn btn-primary btn-sm btn-block"><i class="fas fa-pencil-alt"></i> Edit</a></td>';
+      $table .= '<div class="modal fade" id="userEditModal' . $user->ID . '">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Edit '. $user->username  .'</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                      </div>
+                      <div class="modal-body">
+                        <form>
+                          <div class="form-group">
+                                <label class="small mb-1" for="editUserUsername'.$user->ID.'">Username</label>
+                                <input class="form-control py-4" id="editUserUsername'.$user->ID.'" type="text" placeholder="Enter username" value="'.$user->username.'" data-entertrigger="userEditButton'.$user->ID.'"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="small mb-1" for="editUserPassword'.$user->ID.'">Password</label>
+                                <input class="form-control py-4" id="editUserPassword'.$user->ID.'" type="password" placeholder="Enter password" data-entertrigger="userEditButton'.$user->ID.'" />
+                            </div>
+                            <div class="form-group">
+                                <label class="small mb-1" for="editUserEmail'.$user->ID.'">Email</label>
+                                <input class="form-control py-4" id="editUserEmail'.$user->ID.'" type="email" placeholder="Enter email" value="'.$user->email.'" data-entertrigger="userEditButton'.$user->ID.'"/>
+                            </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="userEditButton'.$user->ID.'" onclick="editUser('.$user->ID.')">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>';
+      $table .= '<td><a class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#userEditModal' . $user->ID . '"><i class="fas fa-pencil-alt"></i> Edit</a></td>';
       $table .= '<td><a class="btn btn-danger btn-sm btn-block" onclick="delUser('.$user->ID.')"><i class="fas fa-trash-alt"></i> Delete</a></td>';
       $table .= '</td></tr>';
     }
