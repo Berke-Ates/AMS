@@ -1,12 +1,8 @@
 {
   "enabled": true,
   "entry": "dbm.php",
-  "dependencies": ["logger", "ajaxman"],
-  "init": "DBM::init",
-  "host":"localhost",
-  "username":"user",
-  "password":"pw",
-  "database":"name",
-  "maxBackups": 1,
-  "autoBackup": false
+  "dependencies": [
+    "logger",
+    "ajaxman"
+  ]
 }
